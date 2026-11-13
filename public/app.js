@@ -335,7 +335,7 @@
       keysHTML(e[0], e[3] || {}) + `<div class="desc">${richText(lang === "fr" ? e[1] : e[2], "")}</div>`
     ).join("");
     $("#info-inner").innerHTML = `
-      <header class="info-head">
+      <div class="info-head">
         <div>
           <div class="info-keys">${keysHTML(d.display || infoKey)}</div>
           <h2 id="info-title">${esc(d.title[lang])}</h2>
@@ -343,13 +343,13 @@
         <button type="button" class="icon-btn info-close" aria-label="${esc(u.close)}" title="${esc(u.close)} (Esc)">
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg>
         </button>
-      </header>
-      <div class="info-body">
+      </div>
+      <div class="info-body" tabindex="0">
         ${(d[lang] || []).map((p) => `<p>${richText(p, "")}</p>`).join("")}
         ${d.demo ? demoHTML(d.demo, u) : ""}
         ${ex ? `<h3>${esc(u.examples)}</h3><div class="rows">${ex}</div>` : ""}
       </div>
-      ${d.help ? `<footer class="info-foot"><span>${esc(u.helpLabel)}</span>${seqHTML(":help " + d.help)}</footer>` : ""}`;
+      ${d.help ? `<div class="info-foot"><span>${esc(u.helpLabel)}</span>${seqHTML(":help " + d.help)}</div>` : ""}`;
   }
 
   /** Before/after demo: starting text, then each command with the resulting text. */

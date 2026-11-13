@@ -8,7 +8,7 @@
   --line-strong: #d6d8d0;
   --text: #1b1f1c;
   --text-2: #4d544f;
-  --muted: #7a817c;
+  --muted: #5f6661;
   --kbd-bg: #ffffff;
   --kbd-border: #cfd2ca;
   --kbd-shadow: #bfc3b9;
@@ -174,7 +174,7 @@ svg { display: block; }
 .support-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .support-btn:hover { background: color-mix(in srgb, var(--alt) 18%, transparent); }
 .version {
-  font: 500 11px/1 var(--mono); color: var(--muted); text-decoration: none; opacity: .75;
+  font: 500 11px/1 var(--mono); color: var(--muted); text-decoration: none;
   padding: 4px 2px; margin-right: 2px;
 }
 .version:hover { opacity: 1; color: var(--text-2); }
@@ -276,7 +276,7 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
 .legend-item > span { min-width: 9em; flex: 1; }
 .legend-note { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: 0; }
 
-.panel-title { display: none; }
+.panel-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* Masonry-like flow: cards fill columns top to bottom, no gaps. */
 .grid { column-width: 340px; column-gap: 16px; }
 .card {
@@ -331,7 +331,8 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
 .k svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .k svg.fill { fill: currentColor; stroke: none; }
 .k.tint {
-  color: var(--k); font-weight: 600; font-size: 12px;
+  /* Nudged toward the text colour so tinted labels keep AA contrast in both themes. */
+  color: color-mix(in srgb, var(--k) 78%, var(--text)); font-weight: 600; font-size: 12px;
   background: color-mix(in srgb, var(--k) 12%, var(--kbd-bg));
   border-color: color-mix(in srgb, var(--k) 38%, var(--kbd-bg));
   border-bottom-color: color-mix(in srgb, var(--k) 60%, var(--kbd-bg));
@@ -341,7 +342,7 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
 .since {
   display: inline-block; vertical-align: 1px; margin-left: 4px; padding: 2px 6px;
   font: 600 10.5px/1.2 var(--mono); letter-spacing: .02em; white-space: nowrap;
-  color: var(--enter); border-radius: 999px;
+  color: color-mix(in srgb, var(--enter) 78%, var(--text)); border-radius: 999px;
   background: color-mix(in srgb, var(--enter) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--enter) 35%, transparent);
 }
@@ -524,6 +525,7 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   .panel { display: block !important; break-before: page; }
   .panel:first-child { break-before: auto; }
   .panel-title {
+    position: static; width: auto; height: auto; overflow: visible; clip: auto;
     display: flex; align-items: center; gap: 8px; font-size: 16px; margin: 0 0 10px; color: var(--k);
   }
   .grid { column-count: 2; column-width: auto; column-gap: 8px; }
