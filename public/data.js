@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.9.0",
+  version: "1.10.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
@@ -312,95 +312,6 @@ window.VIM_DATA = {
       ],
     },
 
-    /* ───────────────────────────── Advanced editing ───────────────────────────── */
-    {
-      id: "advanced", icon: "wand", color: "alt",
-      label: { fr: "Édition avancée", en: "Advanced editing" },
-      groups: [
-        {
-          title: { fr: "Opérateurs + mouvements", en: "Operators + motions" },
-          items: [
-            ["d{motion}", "Supprimer (ex. `d3w`, `dG`)", "Delete (e.g. `d3w`, `dG`)"],
-            ["c{motion}", "Changer (ex. `ct)`)", "Change (e.g. `ct)`)"],
-            ["y{motion}", "Copier (ex. `y$`)", "Yank (e.g. `y$`)"],
-            [[">{motion}", "<{motion}"], "Indenter / désindenter", "Indent / unindent", { list: true }],
-            ["={motion}", "Réindenter automatiquement", "Auto-indent"],
-            [[">>", "<<"], "Indenter / désindenter la ligne", "Indent / unindent line", { list: true }],
-            ["==", "Réindenter la ligne", "Re-indent line"],
-          ],
-        },
-        {
-          title: { fr: "Objets texte", en: "Text objects" },
-          items: [
-            ["{op}{obj}", "Toujours après un opérateur (`d` `c` `y` `v`…) : `ciw` = changer le mot", "Always after an operator (`d` `c` `y` `v`…): `ciw` = change word"],
-            [["iw", "aw"], "Mot (`i` = intérieur, `a` = avec l'espace)", "Word (`i` = inner, `a` = with the space)"],
-            [["i\"", "a\""], "Entre guillemets", "Inside quotes"],
-            [["i(", "a("], "Entre parenthèses (aussi `ib`)", "Inside parentheses (also `ib`)"],
-            [["i{", "a{"], "Entre accolades (aussi `iB`)", "Inside braces (also `iB`)"],
-            [["it", "at"], "Entre balises HTML/XML", "Inside HTML/XML tags"],
-            [["ip", "ap"], "Paragraphe", "Paragraph"],
-          ],
-        },
-        {
-          title: { fr: "Complétion (Ctrl+x)", en: "Completion (Ctrl+x)" },
-          items: [
-            ["<C-x><C-n>", "Mots du fichier courant", "Words from the current file"],
-            ["<C-x><C-l>", "Ligne entière", "Whole line"],
-            ["<C-x><C-f>", "Nom de fichier", "File name"],
-            ["<C-x><C-o>", "Omni-complétion (selon le langage)", "Omni completion (language-aware)"],
-            ["<C-x><C-k>", "Dictionnaire (option `dictionary`)", "Dictionary (`dictionary` option)"],
-            ["<C-x><C-]>", "Tags (fichier `tags`)", "Tags (`tags` file)"],
-            ["<C-x>s", "Suggestions d'orthographe (`:set spell`)", "Spelling suggestions (`:set spell`)"],
-            ["<C-x><C-r>", "Mots contenus dans les registres", "Words from registers", { since: "9.2" }],
-            ["<C-[ye]>", "Valider / annuler la complétion", "Accept / cancel completion"],
-          ],
-        },
-        {
-          title: { fr: "Nombres & casse (mode normal)", en: "Numbers & case (normal mode)" },
-          items: [
-            ["<C-[ax]>", "Incrémenter / décrémenter le nombre sous le curseur", "Increment / decrement number under cursor"],
-            ["{n}<C-a>", "Ajouter n au nombre (ex. `10<C-a>`)", "Add n to the number (e.g. `10<C-a>`)"],
-            ["g<C-a>", "En visuel : numéroter une suite (1, 2, 3…)", "In visual: make a sequence (1, 2, 3…)"],
-            ["g~{motion}", "Inverser la casse (ex. `g~iw`)", "Toggle case (e.g. `g~iw`)"],
-            [["gUU", "guu"], "Ligne en majuscules / minuscules", "Line to upper / lower case", { list: true }],
-            ["g?{motion}", "Chiffrer en ROT13", "ROT13 encode"],
-          ],
-        },
-        {
-          title: { fr: "Formatage", en: "Formatting" },
-          items: [
-            ["gq{motion}", "Reformater selon `textwidth` (ex. `gqip`)", "Reflow to `textwidth` (e.g. `gqip`)"],
-            ["gJ", "Joindre les lignes sans ajouter d'espace", "Join lines without adding a space"],
-            [":sort", "Trier les lignes (`u` sans doublons, `n` numérique)", "Sort lines (`u` unique, `n` numeric)"],
-            [":retab", "Convertir tabulations / espaces selon `expandtab`", "Convert tabs / spaces per `expandtab`"],
-            ["gg=G", "Réindenter tout le fichier", "Re-indent the whole file"],
-            [":%norm A;", "Exécuter une commande normale sur chaque ligne", "Run a normal command on every line"],
-          ],
-        },
-        {
-          title: { fr: "Historique", en: "History" },
-          items: [
-            ["u", "Annuler", "Undo"],
-            ["<C-r>", "Rétablir", "Redo", { eq: ":redo" }],
-            ["U", "Annuler tous les changements de la ligne", "Undo all changes on line"],
-            [":earlier {time}", "Revenir dans le temps (ex. `:earlier 10m`)", "Go back in time (e.g. `:earlier 10m`)"],
-            [":later {time}", "Avancer dans le temps", "Go forward in time"],
-          ],
-        },
-        {
-          title: { fr: "Raccourcis perso", en: "Custom mappings" },
-          items: [
-            [":let mapleader = \" \"", "Utiliser Espace comme touche leader (à définir avant les raccourcis)", "Use Space as the leader key (set it before the mappings)"],
-            [":nnoremap {keys} {cmd}", "Créer un raccourci en mode normal (`inoremap` insertion, `vnoremap` visuel)", "Map keys in normal mode (`inoremap` insert, `vnoremap` visual)"],
-            ["<leader>w", "Exemple de raccourci perso : leader puis w pour enregistrer (voir ⓘ ci-dessus)", "Custom mapping example: leader then w to save (see ⓘ above)"],
-            [[":map", ":nmap"], "Lister les raccourcis (tous / mode normal)", "List mappings (all / normal mode)", { list: true }],
-            [":verbose map {keys}", "Voir un raccourci et le fichier qui le définit", "Show a mapping and the file that defines it"],
-            [":nunmap {keys}", "Supprimer un raccourci du mode normal", "Remove a normal-mode mapping"],
-          ],
-        },
-      ],
-    },
-
     /* ───────────────────────────── Visual ───────────────────────────── */
     {
       id: "visual", icon: "select", color: "shift",
@@ -514,60 +425,6 @@ window.VIM_DATA = {
       ],
     },
 
-    /* ───────────────────────────── Buffers, windows, tabs ───────────────────────────── */
-    {
-      id: "windows", icon: "windows", color: "leader",
-      label: { fr: "Buffers & fenêtres", en: "Buffers & windows" },
-      groups: [
-        {
-          title: { fr: "Buffers", en: "Buffers" },
-          items: [
-            [":ls", "Lister les buffers", "List buffers"],
-            [[":bn", ":bp"], "Buffer suivant / précédent", "Next / previous buffer", { list: true }],
-            [":b {n}", "Aller au buffer n", "Go to buffer n"],
-            [":b {name}", "Aller au buffer par nom (Tab complète)", "Go to buffer by name (Tab completes)"],
-            ["<C-^>", "Basculer vers le buffer alterné", "Switch to alternate buffer", { eq: ":b#" }],
-            [":bd", "Fermer le buffer", "Delete (close) buffer"],
-            [":bufdo {cmd}", "Exécuter sur tous les buffers", "Run on all buffers"],
-          ],
-        },
-        {
-          title: { fr: "Fenêtres : ouvrir & naviguer", en: "Windows: open & navigate" },
-          items: [
-            ["<C-w>s", "Découper horizontalement", "Split horizontally", { eq: ":sp" }],
-            ["<C-w>v", "Découper verticalement", "Split vertically", { eq: ":vs" }],
-            ["<C-w>w", "Fenêtre suivante", "Next window", { eq: ":wincmd w" }],
-            ["<C-w>[hjkl]", "Aller à gauche, bas, haut, droite", "Go left, down, up, right", { eq: ":wincmd [hjkl]" }],
-            ["<C-w>q", "Fermer la fenêtre", "Close window", { eq: ":q" }],
-            ["<C-w>o", "Garder seulement celle-ci", "Keep only this one", { eq: ":only" }],
-          ],
-        },
-        {
-          title: { fr: "Fenêtres : taille & position", en: "Windows: size & layout" },
-          items: [
-            ["<C-w>=", "Égaliser les tailles", "Equalize sizes", { eq: ":wincmd =" }],
-            ["<C-w>[_|]", "Maximiser en hauteur / largeur", "Maximize height / width", { eq: [":resize", ":vertical resize"] }],
-            ["<C-w>[+-]", "Plus haute / moins haute", "Taller / shorter", { eq: [":resize +1", ":resize -1"] }],
-            ["<C-w>[><]", "Plus large / moins large", "Wider / narrower", { eq: [":vertical resize +1", ":vertical resize -1"] }],
-            ["<C-w>[HJKL]", "Déplacer la fenêtre à gauche, en bas…", "Move window left, down…", { eq: ":wincmd [HJKL]" }],
-            ["<C-w>T", "Déplacer dans un nouvel onglet", "Move to a new tab", { eq: ":wincmd T" }],
-          ],
-        },
-        {
-          title: { fr: "Onglets", en: "Tabs" },
-          items: [
-            [":tabnew", "Nouvel onglet", "New tab"],
-            [":tabe {file}", "Ouvrir un fichier dans un onglet", "Open file in tab"],
-            ["g[tT]", "Onglet suivant / précédent", "Next / previous tab"],
-            ["{n}gt", "Aller à l'onglet n", "Go to tab n"],
-            [":tabc", "Fermer l'onglet", "Close tab"],
-            [":tabo", "Fermer les autres onglets", "Close other tabs"],
-            [":tabm {n}", "Déplacer l'onglet en position n", "Move tab to position n"],
-          ],
-        },
-      ],
-    },
-
     /* ───────────────────────────── Files ───────────────────────────── */
     {
       id: "files", icon: "folder", color: "ex",
@@ -623,6 +480,149 @@ window.VIM_DATA = {
             [[":wq", ":x", "ZZ"], "Enregistrer et quitter", "Save and quit"],
             [":qa", "Quitter toutes les fenêtres", "Quit all windows"],
             [[":wqa", ":xa"], "Tout enregistrer et quitter", "Save all and quit"],
+          ],
+        },
+      ],
+    },
+
+    /* ───────────────────────────── Buffers, windows, tabs ───────────────────────────── */
+    {
+      id: "windows", icon: "windows", color: "leader",
+      label: { fr: "Buffers & fenêtres", en: "Buffers & windows" },
+      groups: [
+        {
+          title: { fr: "Buffers", en: "Buffers" },
+          items: [
+            [":ls", "Lister les buffers", "List buffers"],
+            [[":bn", ":bp"], "Buffer suivant / précédent", "Next / previous buffer", { list: true }],
+            [":b {n}", "Aller au buffer n", "Go to buffer n"],
+            [":b {name}", "Aller au buffer par nom (Tab complète)", "Go to buffer by name (Tab completes)"],
+            ["<C-^>", "Basculer vers le buffer alterné", "Switch to alternate buffer", { eq: ":b#" }],
+            [":bd", "Fermer le buffer", "Delete (close) buffer"],
+            [":bufdo {cmd}", "Exécuter sur tous les buffers", "Run on all buffers"],
+          ],
+        },
+        {
+          title: { fr: "Fenêtres : ouvrir & naviguer", en: "Windows: open & navigate" },
+          items: [
+            ["<C-w>s", "Découper horizontalement", "Split horizontally", { eq: ":sp" }],
+            ["<C-w>v", "Découper verticalement", "Split vertically", { eq: ":vs" }],
+            ["<C-w>w", "Fenêtre suivante", "Next window", { eq: ":wincmd w" }],
+            ["<C-w>[hjkl]", "Aller à gauche, bas, haut, droite", "Go left, down, up, right", { eq: ":wincmd [hjkl]" }],
+            ["<C-w>q", "Fermer la fenêtre", "Close window", { eq: ":q" }],
+            ["<C-w>o", "Garder seulement celle-ci", "Keep only this one", { eq: ":only" }],
+          ],
+        },
+        {
+          title: { fr: "Fenêtres : taille & position", en: "Windows: size & layout" },
+          items: [
+            ["<C-w>=", "Égaliser les tailles", "Equalize sizes", { eq: ":wincmd =" }],
+            ["<C-w>[_|]", "Maximiser en hauteur / largeur", "Maximize height / width", { eq: [":resize", ":vertical resize"] }],
+            ["<C-w>[+-]", "Plus haute / moins haute", "Taller / shorter", { eq: [":resize +1", ":resize -1"] }],
+            ["<C-w>[><]", "Plus large / moins large", "Wider / narrower", { eq: [":vertical resize +1", ":vertical resize -1"] }],
+            ["<C-w>[HJKL]", "Déplacer la fenêtre à gauche, en bas…", "Move window left, down…", { eq: ":wincmd [HJKL]" }],
+            ["<C-w>T", "Déplacer dans un nouvel onglet", "Move to a new tab", { eq: ":wincmd T" }],
+          ],
+        },
+        {
+          title: { fr: "Onglets", en: "Tabs" },
+          items: [
+            [":tabnew", "Nouvel onglet", "New tab"],
+            [":tabe {file}", "Ouvrir un fichier dans un onglet", "Open file in tab"],
+            ["g[tT]", "Onglet suivant / précédent", "Next / previous tab"],
+            ["{n}gt", "Aller à l'onglet n", "Go to tab n"],
+            [":tabc", "Fermer l'onglet", "Close tab"],
+            [":tabo", "Fermer les autres onglets", "Close other tabs"],
+            [":tabm {n}", "Déplacer l'onglet en position n", "Move tab to position n"],
+          ],
+        },
+      ],
+    },
+
+    /* ───────────────────────────── Advanced editing ───────────────────────────── */
+    {
+      id: "advanced", icon: "wand", color: "alt",
+      label: { fr: "Édition avancée", en: "Advanced editing" },
+      groups: [
+        {
+          title: { fr: "Opérateurs + mouvements", en: "Operators + motions" },
+          items: [
+            ["d{motion}", "Supprimer (ex. `d3w`, `dG`)", "Delete (e.g. `d3w`, `dG`)"],
+            ["c{motion}", "Changer (ex. `ct)`)", "Change (e.g. `ct)`)"],
+            ["y{motion}", "Copier (ex. `y$`)", "Yank (e.g. `y$`)"],
+            [[">{motion}", "<{motion}"], "Indenter / désindenter", "Indent / unindent", { list: true }],
+            ["={motion}", "Réindenter automatiquement", "Auto-indent"],
+            [[">>", "<<"], "Indenter / désindenter la ligne", "Indent / unindent line", { list: true }],
+            ["==", "Réindenter la ligne", "Re-indent line"],
+          ],
+        },
+        {
+          title: { fr: "Objets texte", en: "Text objects" },
+          items: [
+            ["{op}{obj}", "Toujours après un opérateur (`d` `c` `y` `v`…) : `ciw` = changer le mot", "Always after an operator (`d` `c` `y` `v`…): `ciw` = change word"],
+            [["iw", "aw"], "Mot (`i` = intérieur, `a` = avec l'espace)", "Word (`i` = inner, `a` = with the space)"],
+            [["i\"", "a\""], "Entre guillemets", "Inside quotes"],
+            [["i(", "a("], "Entre parenthèses (aussi `ib`)", "Inside parentheses (also `ib`)"],
+            [["i{", "a{"], "Entre accolades (aussi `iB`)", "Inside braces (also `iB`)"],
+            [["it", "at"], "Entre balises HTML/XML", "Inside HTML/XML tags"],
+            [["ip", "ap"], "Paragraphe", "Paragraph"],
+          ],
+        },
+        {
+          title: { fr: "Complétion (Ctrl+x)", en: "Completion (Ctrl+x)" },
+          items: [
+            ["<C-x><C-n>", "Mots du fichier courant", "Words from the current file"],
+            ["<C-x><C-l>", "Ligne entière", "Whole line"],
+            ["<C-x><C-f>", "Nom de fichier", "File name"],
+            ["<C-x><C-o>", "Omni-complétion (selon le langage)", "Omni completion (language-aware)"],
+            ["<C-x><C-k>", "Dictionnaire (option `dictionary`)", "Dictionary (`dictionary` option)"],
+            ["<C-x><C-]>", "Tags (fichier `tags`)", "Tags (`tags` file)"],
+            ["<C-x>s", "Suggestions d'orthographe (`:set spell`)", "Spelling suggestions (`:set spell`)"],
+            ["<C-x><C-r>", "Mots contenus dans les registres", "Words from registers", { since: "9.2" }],
+            ["<C-[ye]>", "Valider / annuler la complétion", "Accept / cancel completion"],
+          ],
+        },
+        {
+          title: { fr: "Nombres & casse (mode normal)", en: "Numbers & case (normal mode)" },
+          items: [
+            ["<C-[ax]>", "Incrémenter / décrémenter le nombre sous le curseur", "Increment / decrement number under cursor"],
+            ["{n}<C-a>", "Ajouter n au nombre (ex. `10<C-a>`)", "Add n to the number (e.g. `10<C-a>`)"],
+            ["g<C-a>", "En visuel : numéroter une suite (1, 2, 3…)", "In visual: make a sequence (1, 2, 3…)"],
+            ["g~{motion}", "Inverser la casse (ex. `g~iw`)", "Toggle case (e.g. `g~iw`)"],
+            [["gUU", "guu"], "Ligne en majuscules / minuscules", "Line to upper / lower case", { list: true }],
+            ["g?{motion}", "Chiffrer en ROT13", "ROT13 encode"],
+          ],
+        },
+        {
+          title: { fr: "Formatage", en: "Formatting" },
+          items: [
+            ["gq{motion}", "Reformater selon `textwidth` (ex. `gqip`)", "Reflow to `textwidth` (e.g. `gqip`)"],
+            ["gJ", "Joindre les lignes sans ajouter d'espace", "Join lines without adding a space"],
+            [":sort", "Trier les lignes (`u` sans doublons, `n` numérique)", "Sort lines (`u` unique, `n` numeric)"],
+            [":retab", "Convertir tabulations / espaces selon `expandtab`", "Convert tabs / spaces per `expandtab`"],
+            ["gg=G", "Réindenter tout le fichier", "Re-indent the whole file"],
+            [":%norm A;", "Exécuter une commande normale sur chaque ligne", "Run a normal command on every line"],
+          ],
+        },
+        {
+          title: { fr: "Historique", en: "History" },
+          items: [
+            ["u", "Annuler", "Undo"],
+            ["<C-r>", "Rétablir", "Redo", { eq: ":redo" }],
+            ["U", "Annuler tous les changements de la ligne", "Undo all changes on line"],
+            [":earlier {time}", "Revenir dans le temps (ex. `:earlier 10m`)", "Go back in time (e.g. `:earlier 10m`)"],
+            [":later {time}", "Avancer dans le temps", "Go forward in time"],
+          ],
+        },
+        {
+          title: { fr: "Raccourcis perso", en: "Custom mappings" },
+          items: [
+            [":let mapleader = \" \"", "Utiliser Espace comme touche leader (à définir avant les raccourcis)", "Use Space as the leader key (set it before the mappings)"],
+            [":nnoremap {keys} {cmd}", "Créer un raccourci en mode normal (`inoremap` insertion, `vnoremap` visuel)", "Map keys in normal mode (`inoremap` insert, `vnoremap` visual)"],
+            ["<leader>w", "Exemple de raccourci perso : leader puis w pour enregistrer (voir ⓘ ci-dessus)", "Custom mapping example: leader then w to save (see ⓘ above)"],
+            [[":map", ":nmap"], "Lister les raccourcis (tous / mode normal)", "List mappings (all / normal mode)", { list: true }],
+            [":verbose map {keys}", "Voir un raccourci et le fichier qui le définit", "Show a mapping and the file that defines it"],
+            [":nunmap {keys}", "Supprimer un raccourci du mode normal", "Remove a normal-mode mapping"],
           ],
         },
       ],

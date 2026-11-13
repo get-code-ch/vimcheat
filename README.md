@@ -4,7 +4,7 @@ Aide-mémoire Vim statique, lisible et bilingue (FR/EN) — *a readable, bilingu
 
 **→ [vimcheat.kite-project.net](https://vimcheat.kite-project.net/)**
 
-- Onglets par type d'opération : essentiels, déplacements, édition, édition avancée, mode visuel, recherche & remplacement, buffers & fenêtres, fichiers, registres & macros.
+- Onglets par type d'opération : essentiels, déplacements, édition, mode visuel, recherche & remplacement, fichiers, buffers & fenêtres, édition avancée, registres & macros.
 - Touches spéciales colorées avec icônes (Esc, Ctrl, Shift, Alt, Entrée, Leader…), combinaisons (`Ctrl+w`) distinguées des séquences (`g g`).
 - Recherche instantanée (`/` pour y aller, `Esc` pour sortir), insensible aux accents.
 - Thème clair / sombre, version imprimable (`Ctrl+P` : tous les onglets sur A4).
