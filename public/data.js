@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.8.2",
+  version: "1.9.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
@@ -55,7 +55,7 @@ window.VIM_DATA = {
         ["<C-x><C-n>", "Ctrl maintenu : x puis n (Ctrl+x Ctrl+n)"],
         [":w", "Fond bleu : commande Ex, taper : puis la commande, valider avec Entrée", true],
         ["{motion}", "À remplacer : mouvement, caractère, nombre…"],
-        ["<leader>", "Touche leader (\\ par défaut)"],
+        ["<leader>", "Touche leader (\\ par défaut) : pour vos raccourcis perso"],
         [["<S-Tab>", "<A-j>", "<CR>"], "Shift, Alt, Entrée"],
       ],
       legendNote: "Les majuscules (G, A, O…) se tapent avec Shift.",
@@ -65,7 +65,7 @@ window.VIM_DATA = {
       source: "Code source",
       skip: "Aller au contenu",
       ph: {
-        motion: "mouvement", op: "opérateur", obj: "objet", char: "car", n: "n", pattern: "motif", old: "ancien", new: "nouveau",
+        motion: "mouvement", keys: "touches", op: "opérateur", obj: "objet", char: "car", n: "n", pattern: "motif", old: "ancien", new: "nouveau",
         file: "fichier", reg: "reg", mark: "marque", text: "texte", cmd: "cmd", topic: "sujet",
         dir: "dossier", type: "type", name: "nom", time: "durée", range: "plage",
       },
@@ -100,7 +100,7 @@ window.VIM_DATA = {
         ["<C-x><C-n>", "Hold Ctrl: x then n (Ctrl+x Ctrl+n)"],
         [":w", "Blue background: Ex command, type : then the command, confirm with Enter", true],
         ["{motion}", "Replace with a motion, character, count…"],
-        ["<leader>", "Leader key (\\ by default)"],
+        ["<leader>", "Leader key (\\ by default): for your own mappings"],
         [["<S-Tab>", "<A-j>", "<CR>"], "Shift, Alt, Enter"],
       ],
       legendNote: "Uppercase letters (G, A, O…) are typed with Shift.",
@@ -110,7 +110,7 @@ window.VIM_DATA = {
       source: "Source code",
       skip: "Skip to content",
       ph: {
-        motion: "motion", op: "operator", obj: "object", char: "char", n: "n", pattern: "pattern", old: "old", new: "new",
+        motion: "motion", keys: "keys", op: "operator", obj: "object", char: "char", n: "n", pattern: "pattern", old: "old", new: "new",
         file: "file", reg: "reg", mark: "mark", text: "text", cmd: "cmd", topic: "topic",
         dir: "dir", type: "type", name: "name", time: "time", range: "range",
       },
@@ -385,6 +385,17 @@ window.VIM_DATA = {
             ["U", "Annuler tous les changements de la ligne", "Undo all changes on line"],
             [":earlier {time}", "Revenir dans le temps (ex. `:earlier 10m`)", "Go back in time (e.g. `:earlier 10m`)"],
             [":later {time}", "Avancer dans le temps", "Go forward in time"],
+          ],
+        },
+        {
+          title: { fr: "Raccourcis perso", en: "Custom mappings" },
+          items: [
+            [":let mapleader = \" \"", "Utiliser Espace comme touche leader (à définir avant les raccourcis)", "Use Space as the leader key (set it before the mappings)"],
+            [":nnoremap {keys} {cmd}", "Créer un raccourci en mode normal (`inoremap` insertion, `vnoremap` visuel)", "Map keys in normal mode (`inoremap` insert, `vnoremap` visual)"],
+            ["<leader>w", "Exemple de raccourci perso : leader puis w pour enregistrer (voir ⓘ ci-dessus)", "Custom mapping example: leader then w to save (see ⓘ above)"],
+            [[":map", ":nmap"], "Lister les raccourcis (tous / mode normal)", "List mappings (all / normal mode)", { list: true }],
+            [":verbose map {keys}", "Voir un raccourci et le fichier qui le définit", "Show a mapping and the file that defines it"],
+            [":nunmap {keys}", "Supprimer un raccourci du mode normal", "Remove a normal-mode mapping"],
           ],
         },
       ],

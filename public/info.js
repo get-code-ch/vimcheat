@@ -83,6 +83,29 @@ window.VIM_INFO = {
     help: "text-objects",
   },
 
+  ":nnoremap {keys} {cmd}": {
+    title: { fr: "Raccourcis perso et touche leader", en: "Custom mappings and the leader key" },
+    fr: [
+      "Un raccourci (mapping) associe une suite de touches à une autre. Vim n'utilise **aucune** commande sur la touche leader : elle est réservée à vos propres raccourcis, pour ne pas écraser une commande existante. Par défaut c'est `\\`, beaucoup la remplacent par Espace.",
+      "Préférez toujours `noremap` à `map` : la version « no re-map » n'interprète pas les autres raccourcis dans la commande, ce qui évite les boucles. La lettre devant indique le mode : `n` normal, `i` insertion, `v` visuel, `c` ligne de commande.",
+      "Tapés avec `:`, les raccourcis disparaissent en quittant Vim. Pour les garder, écrivez les mêmes lignes sans le `:` dans `~/.vimrc` (Neovim : `~/.config/nvim/init.vim`), en mettant `mapleader` avant les raccourcis qui utilisent `<leader>`.",
+    ],
+    en: [
+      "A mapping binds a key sequence to another one. Vim puts **no** command on the leader key: it is reserved for your own mappings, so they never override a built-in command. It defaults to `\\`, many people switch it to Space.",
+      "Always prefer `noremap` over `map`: the \"no re-map\" form doesn't expand other mappings inside the command, which avoids loops. The leading letter is the mode: `n` normal, `i` insert, `v` visual, `c` command line.",
+      "Typed with `:`, mappings are lost when Vim exits. To keep them, write the same lines without the `:` in `~/.vimrc` (Neovim: `~/.config/nvim/init.vim`), with `mapleader` set before any mapping that uses `<leader>`.",
+    ],
+    ex: [
+      [":let mapleader = \" \"", "Leader = Espace", "Leader = Space"],
+      [":nnoremap <leader>w :w<CR>", "Leader puis w : enregistrer", "Leader then w: save"],
+      [":nnoremap <leader>h :nohlsearch<CR>", "Leader puis h : effacer la surbrillance de recherche", "Leader then h: clear search highlight"],
+      [":inoremap jk <Esc>", "Taper jk en insertion : revenir au mode normal", "Type jk in insert mode: back to normal mode"],
+      [":vnoremap < <gv", "Désindenter en gardant la sélection", "Unindent and keep the selection"],
+      [":verbose nmap <leader>w", "Vérifier le raccourci et d'où il vient", "Check the mapping and where it comes from"],
+    ],
+    help: "key-mapping",
+  },
+
   ":%s/{old}/{new}/g": {
     title: { fr: "Rechercher et remplacer avec :s", en: "Search and replace with :s" },
     fr: [
