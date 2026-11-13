@@ -263,7 +263,11 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
 .rows { display: grid; grid-template-columns: fit-content(62%) 1fr; column-gap: 14px; }
 .rows > .keys, .rows > .desc { padding: 6px 0; border-top: 1px solid var(--line); }
 .rows > :nth-child(-n + 2) { border-top: 0; }
-.desc { color: var(--text-2); font-size: 14px; align-self: center; }
+.desc { color: var(--text-2); font-size: 14px; }
+/* Both cells stretch to the row height so their separators line up; content is top-aligned,
+   and the description is nudged down to sit on the middle of the first line of keys. */
+.rows > .keys { align-self: stretch; align-content: flex-start; }
+.rows > .desc { align-self: stretch; padding-top: 9px; }
 .desc code {
   font: 500 12.5px var(--mono); background: var(--surface-2); border: 1px solid var(--line);
   padding: 1px 5px; border-radius: 5px; color: var(--text);
@@ -271,7 +275,7 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
 mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1px; }
 
 /* ───────────────────────── Keys ───────────────────────── */
-.keys { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; align-self: center; }
+.keys { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; position: relative; }
 .seq { display: inline-flex; align-items: center; gap: 3px; flex-wrap: wrap; }
 .or { font-size: 11.5px; color: var(--muted); font-style: italic; }
 
@@ -292,6 +296,29 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   border-color: color-mix(in srgb, var(--k) 38%, var(--kbd-bg));
   border-bottom-color: color-mix(in srgb, var(--k) 60%, var(--kbd-bg));
 }
+
+/* Equivalent-command tooltip */
+.has-tip { cursor: help; border-radius: 6px; }
+.has-tip:focus-visible { outline-offset: 3px; }
+.tip-dot {
+  font: 600 11px/1 var(--mono); color: var(--muted); opacity: .7;
+  width: 16px; height: 16px; display: inline-grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--line-strong); margin-left: -2px;
+}
+.has-tip:hover .tip-dot, .has-tip:focus .tip-dot { color: var(--accent); border-color: var(--accent); opacity: 1; }
+.tip {
+  position: absolute; left: -6px; bottom: calc(100% + 2px); z-index: 20;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: max-content; max-width: 300px;
+  padding: 7px 10px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  box-shadow: 0 6px 24px rgb(0 0 0 / .14);
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .12s, transform .12s, visibility .12s;
+  pointer-events: none;
+}
+.has-tip:hover .tip, .has-tip:focus .tip, .has-tip:focus-within .tip { opacity: 1; visibility: visible; transform: none; }
+.tip-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.card:has(.has-tip:hover), .card:has(.has-tip:focus) { position: relative; z-index: 2; }
 
 /* "[hjkl]": one of these keys, grouped on a soft pill */
 .choice {
@@ -389,6 +416,8 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   .card { padding: 8px 10px 4px; border-radius: 8px; margin-bottom: 8px; }
   .card h3 { font-size: 9.5px; margin-bottom: 4px; }
   .rows > .keys, .rows > .desc { padding: 4px 0; }
+  .rows > .desc { padding-top: 5px; }
+  .tip, .tip-dot { display: none !important; }
   .desc { font-size: 10.5px; }
   .k, .ph { height: 19px; min-width: 19px; font-size: 10px; padding: 0 5px; }
   .k.tint { font-size: 9.5px; }

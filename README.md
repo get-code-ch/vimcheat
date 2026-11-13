@@ -35,7 +35,7 @@ Tout le contenu est dans [`public/data.js`](public/data.js). Chaque commande est
 | `:cmd …` | commande Ex |
 | `` `code` `` dans une description | code en ligne |
 
-Options : `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
+Options : `{ eq: ":sp" }` (ou un tableau) affiche une commande équivalente en infobulle, `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
 
 ## Version
 

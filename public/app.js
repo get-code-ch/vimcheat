@@ -174,10 +174,20 @@
     return `<span class="seq">${tokenize(src).map(keyHTML).join("")}</span>`;
   }
 
-  function keysHTML(keys, opts = {}) {
+  function altsHTML(keys, opts = {}) {
     const list = Array.isArray(keys) ? keys : [keys];
     const sep = opts.list ? "" : `<span class="or">${esc(ui().or)}</span>`;
-    return `<div class="keys">${list.map((k) => seqHTML(k, opts)).join(sep)}</div>`;
+    return list.map((k) => seqHTML(k, opts)).join(sep);
+  }
+
+  let tipId = 0;
+  function keysHTML(keys, opts = {}) {
+    if (!opts.eq) return `<div class="keys">${altsHTML(keys, opts)}</div>`;
+    // Equivalent command (usually the Ex form of a Ctrl shortcut), shown as a tooltip.
+    const id = "tip-" + ++tipId;
+    return `<div class="keys has-tip" tabindex="0" aria-describedby="${id}">${altsHTML(keys, opts)}` +
+      `<span class="tip-dot" aria-hidden="true">≡</span>` +
+      `<span class="tip" role="tooltip" id="${id}"><span class="tip-label">${esc(ui().eq)}</span>${[].concat(opts.eq).map((k) => seqHTML(k)).join('<span class="or">/</span>')}</span></div>`;
   }
 
   const item = (it) => ({ keys: it[0], desc: lang === "fr" ? it[1] : it[2], opts: it[3] || {} });
@@ -258,8 +268,9 @@
       const cards = tab.groups.map((g) => {
         const groupHit = norm(g.title[lang]).includes(q);
         const items = groupHit ? g.items : g.items.filter((it) => {
-          const { keys, desc } = item(it);
-          return norm(desc).includes(q) || norm(keyWords(keys)).includes(q);
+          const { keys, desc, opts } = item(it);
+          return norm(desc).includes(q) || norm(keyWords(keys)).includes(q) ||
+            (opts.eq && norm(keyWords(opts.eq)).includes(q));
         });
         count += items.length;
         return items.length ? cardHTML(g, tab, items, q) : "";

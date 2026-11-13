@@ -10,18 +10,20 @@
  *   <Esc> <CR> <Tab> <Space> <BS> <leader> <Up> <Down> <Left> <Right> <PageUp> <PageDown>
  *   <C-x> Ctrl+x · <S-x> Shift+x · <A-x> Alt+x
  *   [abc]   one of these keys (also inside a chord: <C-[du]>)
+ *   options.eq  equivalent command(s), shown as a tooltip (e.g. the Ex form of a Ctrl shortcut)
  *   {name}  placeholder (translated via ui.*.ph)
  *   ":..."  Ex command (rendered as a command line)
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.1.0",
+  version: "1.2.0",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
       search: "Rechercher une commande…",
       searchHint: "Tapez / pour rechercher",
       or: "ou",
+      eq: "Équivalent",
       results: (n) => (n === 0 ? "Aucun résultat" : n === 1 ? "1 résultat" : n + " résultats"),
       noResults: "Aucune commande ne correspond. Essayez « ctrl », « fenêtre » ou « :s ».",
       legend: "Légende",
@@ -53,6 +55,7 @@ window.VIM_DATA = {
       search: "Search a command…",
       searchHint: "Press / to search",
       or: "or",
+      eq: "Equivalent",
       results: (n) => (n === 0 ? "No results" : n === 1 ? "1 result" : n + " results"),
       noResults: "No command matches. Try “ctrl”, “window” or “:s”.",
       legend: "Legend",
@@ -111,7 +114,7 @@ window.VIM_DATA = {
           title: { fr: "Annuler & répéter", en: "Undo & repeat" },
           items: [
             ["u", "Annuler", "Undo"],
-            ["<C-r>", "Rétablir", "Redo"],
+            ["<C-r>", "Rétablir", "Redo", { eq: ":redo" }],
             [".", "Répéter la dernière modification", "Repeat last change"],
           ],
         },
@@ -202,7 +205,7 @@ window.VIM_DATA = {
           items: [
             [["H", "M", "L"], "Haut, milieu, bas de l'écran", "Top, middle, bottom of screen", { list: true }],
             ["<C-[du]>", "Demi-page vers le bas / haut", "Half page down / up"],
-            ["<C-[fb]>", "Page suivante / précédente", "Page down / up"],
+            ["<C-[fb]>", "Page suivante / précédente", "Page down / up", { eq: ["<PageDown>", "<PageUp>"] }],
             ["<C-[ey]>", "Défiler d'une ligne", "Scroll one line"],
             ["zz", "Centrer l'écran sur le curseur", "Center screen on cursor"],
             [["zt", "zb"], "Ligne du curseur en haut / en bas", "Cursor line to top / bottom", { list: true }],
@@ -301,7 +304,7 @@ window.VIM_DATA = {
           title: { fr: "Historique", en: "History" },
           items: [
             ["u", "Annuler", "Undo"],
-            ["<C-r>", "Rétablir", "Redo"],
+            ["<C-r>", "Rétablir", "Redo", { eq: ":redo" }],
             ["U", "Annuler tous les changements de la ligne", "Undo all changes on line"],
             [":earlier {time}", "Revenir dans le temps (ex. `:earlier 10m`)", "Go back in time (e.g. `:earlier 10m`)"],
             [":later {time}", "Avancer dans le temps", "Go forward in time"],
@@ -320,7 +323,7 @@ window.VIM_DATA = {
           items: [
             ["v", "Sélection par caractères", "Character-wise selection"],
             ["V", "Sélection par lignes", "Line-wise selection"],
-            ["<C-v>", "Sélection en bloc (colonnes)", "Block (column) selection"],
+            ["<C-v>", "Sélection en bloc (colonnes)", "Block (column) selection", { eq: "<C-q>" }],
             ["gv", "Resélectionner la dernière sélection", "Reselect last selection"],
             ["o", "Aller à l'autre extrémité", "Go to other end"],
             ["O", "Coin opposé du bloc", "Other corner of block"],
@@ -435,7 +438,7 @@ window.VIM_DATA = {
             [[":bn", ":bp"], "Buffer suivant / précédent", "Next / previous buffer", { list: true }],
             [":b {n}", "Aller au buffer n", "Go to buffer n"],
             [":b {name}", "Aller au buffer par nom (Tab complète)", "Go to buffer by name (Tab completes)"],
-            ["<C-^>", "Basculer vers le buffer alterné", "Switch to alternate buffer"],
+            ["<C-^>", "Basculer vers le buffer alterné", "Switch to alternate buffer", { eq: ":b#" }],
             [":bd", "Fermer le buffer", "Delete (close) buffer"],
             [":bufdo {cmd}", "Exécuter sur tous les buffers", "Run on all buffers"],
           ],
@@ -443,23 +446,23 @@ window.VIM_DATA = {
         {
           title: { fr: "Fenêtres : ouvrir & naviguer", en: "Windows: open & navigate" },
           items: [
-            ["<C-w>s", "Découper horizontalement (`:sp`)", "Split horizontally (`:sp`)"],
-            ["<C-w>v", "Découper verticalement (`:vs`)", "Split vertically (`:vs`)"],
-            ["<C-w>w", "Fenêtre suivante", "Next window"],
-            ["<C-w>[hjkl]", "Aller à gauche, bas, haut, droite", "Go left, down, up, right"],
-            ["<C-w>q", "Fermer la fenêtre (`:q`)", "Close window (`:q`)"],
-            ["<C-w>o", "Garder seulement celle-ci (`:only`)", "Keep only this one (`:only`)"],
+            ["<C-w>s", "Découper horizontalement", "Split horizontally", { eq: ":sp" }],
+            ["<C-w>v", "Découper verticalement", "Split vertically", { eq: ":vs" }],
+            ["<C-w>w", "Fenêtre suivante", "Next window", { eq: ":wincmd w" }],
+            ["<C-w>[hjkl]", "Aller à gauche, bas, haut, droite", "Go left, down, up, right", { eq: ":wincmd [hjkl]" }],
+            ["<C-w>q", "Fermer la fenêtre", "Close window", { eq: ":q" }],
+            ["<C-w>o", "Garder seulement celle-ci", "Keep only this one", { eq: ":only" }],
           ],
         },
         {
           title: { fr: "Fenêtres : taille & position", en: "Windows: size & layout" },
           items: [
-            ["<C-w>=", "Égaliser les tailles", "Equalize sizes"],
-            ["<C-w>[_|]", "Maximiser en hauteur / largeur", "Maximize height / width"],
-            ["<C-w>[+-]", "Plus haute / moins haute", "Taller / shorter"],
-            ["<C-w>[><]", "Plus large / moins large", "Wider / narrower"],
-            ["<C-w>[HJKL]", "Déplacer la fenêtre à gauche, en bas…", "Move window left, down…"],
-            ["<C-w>T", "Déplacer dans un nouvel onglet", "Move to a new tab"],
+            ["<C-w>=", "Égaliser les tailles", "Equalize sizes", { eq: ":wincmd =" }],
+            ["<C-w>[_|]", "Maximiser en hauteur / largeur", "Maximize height / width", { eq: [":resize", ":vertical resize"] }],
+            ["<C-w>[+-]", "Plus haute / moins haute", "Taller / shorter", { eq: [":resize +1", ":resize -1"] }],
+            ["<C-w>[><]", "Plus large / moins large", "Wider / narrower", { eq: [":vertical resize +1", ":vertical resize -1"] }],
+            ["<C-w>[HJKL]", "Déplacer la fenêtre à gauche, en bas…", "Move window left, down…", { eq: ":wincmd [HJKL]" }],
+            ["<C-w>T", "Déplacer dans un nouvel onglet", "Move to a new tab", { eq: ":wincmd T" }],
           ],
         },
         {
@@ -517,7 +520,7 @@ window.VIM_DATA = {
         {
           title: { fr: "Infos & format", en: "Info & format" },
           items: [
-            ["<C-g>", "Nom du fichier et position", "File name and position"],
+            ["<C-g>", "Nom du fichier et position", "File name and position", { eq: ":file" }],
             [[":pwd", ":cd {dir}"], "Dossier courant / changer de dossier", "Current dir / change dir", { list: true }],
             [":set ff=unix", "Fins de ligne Unix (LF)", "Unix line endings (LF)"],
             [":set fenc=utf-8", "Encodage du fichier", "File encoding"],
