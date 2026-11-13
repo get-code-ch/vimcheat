@@ -2,6 +2,7 @@
   "use strict";
 
   const DATA = window.VIM_DATA;
+  const INFO = window.VIM_INFO || {};
   const $ = (s, el = document) => el.querySelector(s);
 
   /* ───────────────────────── Storage (best effort) ───────────────────────── */
@@ -36,6 +37,7 @@
     folder: '<path d="M2.5 5.5a2 2 0 0 1 2-2h3l2 2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2z"/>',
     clipboard: '<rect x="4" y="3.5" width="12" height="14" rx="2"/><path d="M7.5 2.5h5v2.5h-5zM7 9h6M7 12.5h4"/>',
   };
+  const INFO_ICON = '<circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4"/><circle class="f-dot" cx="8" cy="4.9" r=".4"/>';
   const svg = (paths, vb = 16) => {
     const fill = paths.includes('class="f"');
     return `<svg viewBox="0 0 ${vb} ${vb}" aria-hidden="true"${fill ? ' class="fill"' : ""}>${paths}</svg>`;
@@ -195,7 +197,11 @@
   function cardHTML(group, tab, items, q) {
     const rows = items.map((it) => {
       const { keys, desc, opts } = item(it);
-      return keysHTML(keys, opts) + `<div class="desc">${richText(desc, q)}</div>`;
+      const k0 = [].concat(keys)[0];
+      const info = INFO[k0]
+        ? `<button type="button" class="info-btn" data-info="${esc(k0)}" aria-label="${esc(ui().info)} : ${esc(desc)}" title="${esc(ui().info)}">${svg(INFO_ICON, 16)}</button>`
+        : "";
+      return keysHTML(keys, opts) + `<div class="desc${info ? " has-info" : ""}"><span>${richText(desc, q)}</span>${info}</div>`;
     }).join("");
     return `<section class="card c-${tab.color}"><h3>${hl(group.title[lang], q)}</h3><div class="rows">${rows}</div></section>`;
   }
@@ -284,6 +290,50 @@
     panels.hidden = true;
   }
 
+  /* ───────────────────────── Detail dialog ───────────────────────── */
+  const dlg = $("#info");
+  let infoKey = null;
+
+  function renderInfo() {
+    const d = INFO[infoKey];
+    if (!d) return;
+    const u = ui();
+    const ex = (d.ex || []).map((e) =>
+      keysHTML(e[0], e[3] || {}) + `<div class="desc">${richText(lang === "fr" ? e[1] : e[2], "")}</div>`
+    ).join("");
+    $("#info-inner").innerHTML = `
+      <header class="info-head">
+        <div>
+          <div class="info-keys">${keysHTML(infoKey)}</div>
+          <h2 id="info-title">${esc(d.title[lang])}</h2>
+        </div>
+        <button type="button" class="icon-btn info-close" aria-label="${esc(u.close)}" title="${esc(u.close)} (Esc)">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg>
+        </button>
+      </header>
+      <div class="info-body">
+        ${(d[lang] || []).map((p) => `<p>${richText(p, "")}</p>`).join("")}
+        ${ex ? `<h3>${esc(u.examples)}</h3><div class="rows">${ex}</div>` : ""}
+      </div>
+      ${d.help ? `<footer class="info-foot"><span>${esc(u.helpLabel)}</span>${seqHTML(":help " + d.help)}</footer>` : ""}`;
+  }
+
+  function openInfo(key) {
+    infoKey = key;
+    renderInfo();
+    if (!dlg.open) dlg.showModal();
+    $(".info-body", dlg).scrollTop = 0;
+  }
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".info-btn");
+    if (b) openInfo(b.dataset.info);
+  });
+  dlg.addEventListener("click", (e) => {
+    // Close on the close button or on a click on the backdrop (outside the panel).
+    if (e.target.closest(".info-close") || e.target === dlg) dlg.close();
+  });
+
   /* ───────────────────────── i18n & theme ───────────────────────── */
   function applyLang() {
     const u = ui();
@@ -298,6 +348,7 @@
     renderTabs();
     renderPanels();
     renderLegend();
+    if (dlg.open) renderInfo();
     showTab(currentTabId());
     renderResults();
   }
@@ -341,7 +392,7 @@
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey || dlg.open) return;
     const t = e.target;
     if (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
     e.preventDefault();

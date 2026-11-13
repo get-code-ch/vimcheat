@@ -37,6 +37,10 @@ Tout le contenu est dans [`public/data.js`](public/data.js). Chaque commande est
 
 Options : `{ eq: ":sp" }` (ou un tableau) affiche une commande équivalente en infobulle, `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
 
+## Explications détaillées
+
+Les commandes complexes ont une icône ⓘ qui ouvre une fenêtre d'explications. Le contenu est dans [`public/info.js`](public/info.js), indexé par la première touche de la commande dans `data.js` (paragraphes FR/EN, exemples, sujet `:help`).
+
 ## Version
 
 Le numéro affiché en haut à droite vient de `version` dans [`public/data.js`](public/data.js) : l'incrémenter à chaque évolution.

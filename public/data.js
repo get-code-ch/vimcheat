@@ -16,7 +16,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.2.0",
+  version: "1.3.0",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
@@ -24,6 +24,10 @@ window.VIM_DATA = {
       searchHint: "Tapez / pour rechercher",
       or: "ou",
       eq: "Équivalent",
+      info: "Détails",
+      close: "Fermer",
+      examples: "Exemples",
+      helpLabel: "Aide Vim",
       results: (n) => (n === 0 ? "Aucun résultat" : n === 1 ? "1 résultat" : n + " résultats"),
       noResults: "Aucune commande ne correspond. Essayez « ctrl », « fenêtre » ou « :s ».",
       legend: "Légende",
@@ -56,6 +60,10 @@ window.VIM_DATA = {
       searchHint: "Press / to search",
       or: "or",
       eq: "Equivalent",
+      info: "Details",
+      close: "Close",
+      examples: "Examples",
+      helpLabel: "Vim help",
       results: (n) => (n === 0 ? "No results" : n === 1 ? "1 result" : n + " results"),
       noResults: "No command matches. Try “ctrl”, “window” or “:s”.",
       legend: "Legend",
