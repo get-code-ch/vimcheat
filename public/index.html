@@ -3,8 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>vimcheat — Vim cheat sheet</title>
-  <meta name="description" content="Aide-mémoire Vim lisible et bilingue (FR/EN) : déplacements, édition, mode visuel, recherche, buffers, fichiers, registres et macros.">
+  <title>vimcheat — Aide-mémoire Vim (cheat sheet FR/EN)</title>
+  <meta name="description" content="Aide-mémoire Vim clair et bilingue (FR/EN) : modes, déplacements, édition, objets texte, mode visuel, recherche et remplacement, buffers et fenêtres, fichiers, registres et macros. Recherche instantanée et version imprimable.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://vimcheat.claude-db2.workers.dev/">
+  <link rel="alternate" hreflang="fr" href="https://vimcheat.claude-db2.workers.dev/">
+  <link rel="alternate" hreflang="en" href="https://vimcheat.claude-db2.workers.dev/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://vimcheat.claude-db2.workers.dev/">
+  <meta name="author" content="get-code">
+
+  <!-- Social previews (Open Graph / Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="vimcheat">
+  <meta property="og:url" content="https://vimcheat.claude-db2.workers.dev/">
+  <meta property="og:title" content="vimcheat — Aide-mémoire Vim">
+  <meta property="og:description" content="Toutes les commandes Vim essentielles, lisibles d'un coup d'œil. Bilingue FR/EN, recherche instantanée, imprimable.">
+  <meta property="og:image" content="https://vimcheat.claude-db2.workers.dev/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="vimcheat : aide-mémoire Vim avec touches colorées">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "vimcheat",
+    "alternateName": ["Aide-mémoire Vim", "Vim cheat sheet"],
+    "url": "https://vimcheat.claude-db2.workers.dev/",
+    "description": "Aide-mémoire Vim bilingue (FR/EN) : modes, déplacements, édition, mode visuel, recherche, buffers, fichiers, registres et macros.",
+    "inLanguage": ["fr", "en"],
+    "image": "https://vimcheat.claude-db2.workers.dev/og.png",
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true,
+    "about": { "@type": "SoftwareApplication", "name": "Vim", "applicationCategory": "DeveloperApplication", "url": "https://www.vim.org/" },
+    "publisher": { "@type": "Organization", "name": "get-code", "url": "https://github.com/get-code-ch" }
+  }
+  </script>
   <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121413" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -63,6 +100,7 @@
   </header>
 
   <main id="main">
+    <h1 class="sr-only" id="page-h1">Aide-mémoire Vim : toutes les commandes essentielles</h1>
     <details class="legend" id="legend">
       <summary><span data-i18n="legend">Légende</span></summary>
       <div class="legend-body" id="legend-body"></div>
@@ -85,6 +123,10 @@
     <span class="dot support-foot" hidden>·</span>
     <a class="support-foot" id="support-foot" target="_blank" rel="noopener" hidden></a>
   </footer>
+
+  <noscript>
+    <p class="noscript">vimcheat est un aide-mémoire Vim interactif : activez JavaScript pour afficher les commandes. / vimcheat is an interactive Vim cheat sheet: enable JavaScript to see the commands.</p>
+  </noscript>
 
   <script src="data.js"></script>
   <script src="info.js"></script>

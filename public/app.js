@@ -114,7 +114,11 @@
   }
 
   /* ───────────────────────── State ───────────────────────── */
-  let lang = store.get("lang") || ((navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en");
+  // ?lang=en|fr in the URL wins (shareable, indexable), then the saved choice, then the browser language.
+  const urlLang = new URLSearchParams(location.search).get("lang");
+  let lang = (urlLang && DATA.ui[urlLang] && urlLang) || store.get("lang") ||
+    // Crawlers get the French default at "/" (English lives at ?lang=en, see hreflang).
+    (/bot|crawl|spider|slurp/i.test(navigator.userAgent) ? "fr" : null) || ((navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en");
   if (!DATA.ui[lang]) lang = "fr";
   let query = "";
   const ui = () => DATA.ui[lang];
@@ -378,7 +382,15 @@
   function applyLang() {
     const u = ui();
     document.documentElement.lang = lang;
-    document.title = "vimcheat — " + u.title;
+    document.title = u.docTitle;
+    document.querySelector('meta[name="description"]').content = u.metaDesc;
+    $("#page-h1").textContent = u.h1;
+    // Keep the URL and canonical in sync with the language (French is the default URL).
+    const url = new URL(location.href);
+    if (lang === "fr") url.searchParams.delete("lang"); else url.searchParams.set("lang", lang);
+    history.replaceState(null, "", url);
+    const canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.href = canon.href.split("?")[0] + (lang === "fr" ? "" : "?lang=" + lang);
     for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = u[el.dataset.i18n];
     $("#q").placeholder = u.search;
     $("#lang").setAttribute("aria-label", u.lang);

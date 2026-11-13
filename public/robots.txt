@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vimcheat.claude-db2.workers.dev/sitemap.xml

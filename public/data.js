@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.7.0",
+  version: "1.8.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
@@ -27,6 +27,9 @@ window.VIM_DATA = {
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
+      h1: "Aide-mémoire Vim : toutes les commandes essentielles",
+      docTitle: "vimcheat — Aide-mémoire Vim (cheat sheet FR/EN)",
+      metaDesc: "Aide-mémoire Vim clair et bilingue (FR/EN) : modes, déplacements, édition, objets texte, mode visuel, recherche et remplacement, buffers et fenêtres, fichiers, registres et macros. Recherche instantanée et version imprimable.",
       search: "Rechercher une commande…",
       searchHint: "Tapez / pour rechercher",
       or: "ou",
@@ -69,6 +72,9 @@ window.VIM_DATA = {
     },
     en: {
       title: "Vim cheat sheet",
+      h1: "Vim cheat sheet: all the essential commands",
+      docTitle: "vimcheat — Vim cheat sheet (EN/FR)",
+      metaDesc: "A clear, bilingual (EN/FR) Vim cheat sheet: modes, motions, editing, text objects, visual mode, search and replace, buffers and windows, files, registers and macros. Instant search and printable.",
       search: "Search a command…",
       searchHint: "Press / to search",
       or: "or",

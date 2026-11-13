@@ -54,6 +54,12 @@ Secrets à définir dans le repo GitHub (*Settings → Secrets and variables →
 - `CLOUDFLARE_API_TOKEN` — token API créé avec le modèle **Edit Cloudflare Workers**
 - `CLOUDFLARE_ACCOUNT_ID` — identifiant du compte Cloudflare
 
+## Référencement
+
+- URL de base `https://vimcheat.claude-db2.workers.dev/` codée dans `public/index.html` (canonical, hreflang, Open Graph, JSON-LD), `public/robots.txt` et `public/sitemap.xml` : à remplacer partout en cas de domaine personnalisé.
+- Français à `/`, anglais à `/?lang=en` (le paramètre `?lang=` prime sur le choix mémorisé et la langue du navigateur).
+- Image de partage : `public/og.png` (1200×630).
+
 ## Licence
 
 [MIT](LICENSE)
