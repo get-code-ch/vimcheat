@@ -30,11 +30,16 @@ Tout le contenu est dans [`public/data.js`](public/data.js). Chaque commande est
 | `dd`, `gg` | séquence de touches |
 | `<C-x>` `<S-x>` `<A-x>` | combinaison Ctrl / Shift / Alt |
 | `<Esc>` `<CR>` `<Tab>` `<Space>` `<BS>` `<leader>` `<Up>`… | touche spéciale colorée |
+| `[hjkl]`, `<C-[du]>` | une touche au choix dans le groupe |
 | `{motion}` `{char}` `{n}` `{file}`… | à remplacer (libellé traduit via `ui.*.ph`) |
 | `:cmd …` | commande Ex |
 | `` `code` `` dans une description | code en ligne |
 
 Options : `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
+
+## Version
+
+Le numéro affiché en haut à droite vient de `version` dans [`public/data.js`](public/data.js) : l'incrémenter à chaque évolution.
 
 ## Déploiement (Cloudflare Workers)
 

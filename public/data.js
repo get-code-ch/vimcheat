@@ -9,11 +9,13 @@
  * Key notation (vim style):
  *   <Esc> <CR> <Tab> <Space> <BS> <leader> <Up> <Down> <Left> <Right> <PageUp> <PageDown>
  *   <C-x> Ctrl+x · <S-x> Shift+x · <A-x> Alt+x
+ *   [abc]   one of these keys (also inside a chord: <C-[du]>)
  *   {name}  placeholder (translated via ui.*.ph)
  *   ":..."  Ex command (rendered as a command line)
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
+  version: "1.1.0",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
@@ -28,6 +30,7 @@ window.VIM_DATA = {
         ["<C-w>", "Combinaison : maintenir Ctrl et appuyer sur w"],
         ["gg", "Séquence : taper les touches l'une après l'autre"],
         ["<C-w>v", "Combinaison suivie d'une touche"],
+        ["<C-w>[hjkl]", "Au choix : une des touches du groupe"],
         [":w", "Commande Ex : taper puis valider avec Entrée"],
         ["{motion}", "À remplacer : mouvement, caractère, nombre…"],
         ["<leader>", "Touche leader (\\ par défaut)"],
@@ -58,6 +61,7 @@ window.VIM_DATA = {
         ["<C-w>", "Chord: hold Ctrl and press w"],
         ["gg", "Sequence: type the keys one after another"],
         ["<C-w>v", "Chord followed by a key"],
+        ["<C-w>[hjkl]", "Pick one: any key of the group"],
         [":w", "Ex command: type it, then confirm with Enter"],
         ["{motion}", "Replace with a motion, character, count…"],
         ["<leader>", "Leader key (\\ by default)"],
@@ -197,9 +201,9 @@ window.VIM_DATA = {
           title: { fr: "Écran & défilement", en: "Screen & scrolling" },
           items: [
             [["H", "M", "L"], "Haut, milieu, bas de l'écran", "Top, middle, bottom of screen", { list: true }],
-            [["<C-d>", "<C-u>"], "Demi-page vers le bas / haut", "Half page down / up", { list: true }],
-            [["<C-f>", "<C-b>"], "Page suivante / précédente", "Page down / up", { list: true }],
-            [["<C-e>", "<C-y>"], "Défiler d'une ligne", "Scroll one line", { list: true }],
+            ["<C-[du]>", "Demi-page vers le bas / haut", "Half page down / up"],
+            ["<C-[fb]>", "Page suivante / précédente", "Page down / up"],
+            ["<C-[ey]>", "Défiler d'une ligne", "Scroll one line"],
             ["zz", "Centrer l'écran sur le curseur", "Center screen on cursor"],
             [["zt", "zb"], "Ligne du curseur en haut / en bas", "Cursor line to top / bottom", { list: true }],
           ],
@@ -238,10 +242,10 @@ window.VIM_DATA = {
             ["<C-w>", "Effacer le mot précédent", "Delete previous word"],
             ["<C-u>", "Effacer jusqu'au début de la ligne", "Delete to start of line"],
             [["<C-h>", "<BS>"], "Effacer le caractère précédent", "Delete previous character"],
-            [["<C-n>", "<C-p>"], "Complétion : suivant / précédent", "Completion: next / previous", { list: true }],
+            ["<C-[np]>", "Complétion : suivant / précédent", "Completion: next / previous"],
             ["<C-r>{reg}", "Insérer le contenu d'un registre", "Insert register contents"],
             ["<C-o>{cmd}", "Exécuter une commande normale", "Run one normal-mode command"],
-            [["<C-t>", "<C-d>"], "Indenter / désindenter la ligne", "Indent / unindent line", { list: true }],
+            ["<C-[td]>", "Indenter / désindenter la ligne", "Indent / unindent line"],
           ],
         },
         {
@@ -430,27 +434,32 @@ window.VIM_DATA = {
             [":ls", "Lister les buffers", "List buffers"],
             [[":bn", ":bp"], "Buffer suivant / précédent", "Next / previous buffer", { list: true }],
             [":b {n}", "Aller au buffer n", "Go to buffer n"],
-            [":b {name}", "Aller au buffer par nom (Tab pour compléter)", "Go to buffer by name (Tab completes)"],
+            [":b {name}", "Aller au buffer par nom (Tab complète)", "Go to buffer by name (Tab completes)"],
             ["<C-^>", "Basculer vers le buffer alterné", "Switch to alternate buffer"],
             [":bd", "Fermer le buffer", "Delete (close) buffer"],
             [":bufdo {cmd}", "Exécuter sur tous les buffers", "Run on all buffers"],
           ],
         },
         {
-          title: { fr: "Fenêtres (splits)", en: "Windows (splits)" },
+          title: { fr: "Fenêtres : ouvrir & naviguer", en: "Windows: open & navigate" },
           items: [
-            [["<C-w>s", ":sp"], "Découper horizontalement", "Split horizontally"],
-            [["<C-w>v", ":vs"], "Découper verticalement", "Split vertically"],
+            ["<C-w>s", "Découper horizontalement (`:sp`)", "Split horizontally (`:sp`)"],
+            ["<C-w>v", "Découper verticalement (`:vs`)", "Split vertically (`:vs`)"],
             ["<C-w>w", "Fenêtre suivante", "Next window"],
-            [["<C-w>h", "<C-w>j", "<C-w>k", "<C-w>l"], "Aller à gauche, bas, haut, droite", "Go left, down, up, right", { list: true }],
-            [["<C-w>q", ":q"], "Fermer la fenêtre", "Close window"],
-            [["<C-w>o", ":only"], "Garder seulement cette fenêtre", "Keep only this window"],
+            ["<C-w>[hjkl]", "Aller à gauche, bas, haut, droite", "Go left, down, up, right"],
+            ["<C-w>q", "Fermer la fenêtre (`:q`)", "Close window (`:q`)"],
+            ["<C-w>o", "Garder seulement celle-ci (`:only`)", "Keep only this one (`:only`)"],
+          ],
+        },
+        {
+          title: { fr: "Fenêtres : taille & position", en: "Windows: size & layout" },
+          items: [
             ["<C-w>=", "Égaliser les tailles", "Equalize sizes"],
-            [["<C-w>_", "<C-w>|"], "Maximiser en hauteur / largeur", "Maximize height / width", { list: true }],
-            [["<C-w>+", "<C-w>-"], "Plus haute / moins haute", "Taller / shorter", { list: true }],
-            [["<C-w>>", "<C-w><"], "Plus large / moins large", "Wider / narrower", { list: true }],
-            [["<C-w>H", "<C-w>J", "<C-w>K", "<C-w>L"], "Déplacer la fenêtre", "Move window", { list: true }],
-            ["<C-w>T", "Déplacer la fenêtre dans un onglet", "Move window to new tab"],
+            ["<C-w>[_|]", "Maximiser en hauteur / largeur", "Maximize height / width"],
+            ["<C-w>[+-]", "Plus haute / moins haute", "Taller / shorter"],
+            ["<C-w>[><]", "Plus large / moins large", "Wider / narrower"],
+            ["<C-w>[HJKL]", "Déplacer la fenêtre à gauche, en bas…", "Move window left, down…"],
+            ["<C-w>T", "Déplacer dans un nouvel onglet", "Move to a new tab"],
           ],
         },
         {
@@ -458,7 +467,7 @@ window.VIM_DATA = {
           items: [
             [":tabnew", "Nouvel onglet", "New tab"],
             [":tabe {file}", "Ouvrir un fichier dans un onglet", "Open file in tab"],
-            [["gt", "gT"], "Onglet suivant / précédent", "Next / previous tab", { list: true }],
+            ["g[tT]", "Onglet suivant / précédent", "Next / previous tab"],
             ["{n}gt", "Aller à l'onglet n", "Go to tab n"],
             [":tabc", "Fermer l'onglet", "Close tab"],
             [":tabo", "Fermer les autres onglets", "Close other tabs"],
@@ -571,7 +580,7 @@ window.VIM_DATA = {
         {
           title: { fr: "Listes de sauts", en: "Jump lists" },
           items: [
-            [["<C-o>", "<C-i>"], "Saut précédent / suivant", "Previous / next jump", { list: true }],
+            ["<C-[oi]>", "Saut précédent / suivant", "Previous / next jump"],
             [["g;", "g,"], "Modification précédente / suivante", "Previous / next change", { list: true }],
             [":jumps", "Afficher la liste des sauts", "Show jump list"],
             [":changes", "Afficher la liste des modifications", "Show change list"],

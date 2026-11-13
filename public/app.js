@@ -76,10 +76,20 @@
       let m;
       if ((m = rest.match(/^<([CSAM])-([^>]+|>)>/))) {
         const inner = SPECIAL[m[2].toLowerCase()];
-        out.push({ t: "chord", mod: MODS[m[1]], key: inner ? { t: "special", ...inner } : { t: "key", ch: m[2] } });
+        const choice = m[2].match(/^\[(.{2,})\]$/); // "<C-[du]>" = Ctrl + one of d, u
+        out.push({
+          t: "chord", mod: MODS[m[1]],
+          key: inner ? { t: "special", ...inner }
+            : choice ? { t: "choice", keys: [...choice[1]].map((ch) => ({ t: "key", ch })) }
+            : { t: "key", ch: m[2] },
+        });
         i += m[0].length;
       } else if ((m = rest.match(/^<([A-Za-z]+)>/)) && SPECIAL[m[1].toLowerCase()]) {
         out.push({ t: "special", ...SPECIAL[m[1].toLowerCase()] });
+        i += m[0].length;
+      } else if ((m = rest.match(/^\[([^\]]{2,})\]/))) {
+        // "[hjkl]" = one of these keys
+        out.push({ t: "choice", keys: [...m[1]].map((ch) => ({ t: "key", ch })) });
         i += m[0].length;
       } else if ((m = rest.match(/^\{([a-z]+)\}/))) {
         out.push({ t: "ph", name: m[1] });
@@ -139,6 +149,7 @@
       return `<kbd class="k tint c-${tok.c}">${icon}${label}</kbd>`;
     }
     if (tok.t === "ph") return `<span class="ph">${esc(phLabel(tok.name))}</span>`;
+    if (tok.t === "choice") return `<span class="choice">${tok.keys.map(keyHTML).join("")}</span>`;
     if (tok.t === "chord") {
       const m = tok.mod;
       const mod = `<kbd class="k tint c-${m.c}">${svg(KEY_ICONS[m.icon])}<span>${m.label}</span></kbd>`;
@@ -227,7 +238,8 @@
     return list.map((k) => k + " " + tokenize(k).map((t) =>
       t.t === "chord" ? ["+", "-", " "].map((s) => t.mod.label + s + (t.key.label || t.key.ch)).join(" ") :
       t.t === "special" ? t.label + " " + (t.icon || "") :
-      t.t === "ph" ? phLabel(t.name) : t.ch
+      t.t === "ph" ? phLabel(t.name) :
+      t.t === "choice" ? t.keys.map((k) => k.ch).join(" ") : t.ch
     ).join(" ")).join(" ");
   }
 
@@ -343,6 +355,8 @@
   // Make sure every tab is printed even when a search is active.
   window.addEventListener("beforeprint", () => { $("#panels").hidden = false; });
   window.addEventListener("afterprint", () => renderResults());
+
+  $("#version").textContent = "v" + DATA.version;
 
   if (store.get("legend") === "open") $("#legend").open = true;
   $("#legend").addEventListener("toggle", (e) => store.set("legend", e.target.open ? "open" : "closed"));

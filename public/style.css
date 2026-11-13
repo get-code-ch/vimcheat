@@ -163,6 +163,11 @@ svg { display: block; }
 .search-kbd { transition: opacity .15s; }
 
 .controls { display: flex; align-items: center; gap: 8px; flex: none; }
+.version {
+  font: 500 11px/1 var(--mono); color: var(--muted); text-decoration: none; opacity: .75;
+  padding: 4px 2px; margin-right: 2px;
+}
+.version:hover { opacity: 1; color: var(--text-2); }
 .lang {
   display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 3px;
 }
@@ -238,7 +243,8 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 }
 .legend-item { display: flex; align-items: center; gap: 12px; font-size: 13.5px; color: var(--text-2); }
-.legend-item .keys { flex: none; }
+.legend-item .keys { flex: 0 1 auto; }
+.legend-item > span { min-width: 9em; flex: 1; }
 .legend-note { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: 0; }
 
 .panel-title { display: none; }
@@ -254,8 +260,8 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
   color: var(--k); display: flex; align-items: center; gap: 8px;
 }
 .card h3::before { content: ""; width: 8px; height: 8px; border-radius: 3px; background: var(--k); }
-.rows { display: grid; grid-template-columns: fit-content(58%) 1fr; column-gap: 16px; }
-.rows > .keys, .rows > .desc { padding: 8px 0; border-top: 1px solid var(--line); }
+.rows { display: grid; grid-template-columns: fit-content(62%) 1fr; column-gap: 14px; }
+.rows > .keys, .rows > .desc { padding: 6px 0; border-top: 1px solid var(--line); }
 .rows > :nth-child(-n + 2) { border-top: 0; }
 .desc { color: var(--text-2); font-size: 14px; align-self: center; }
 .desc code {
@@ -287,8 +293,15 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   border-bottom-color: color-mix(in srgb, var(--k) 60%, var(--kbd-bg));
 }
 
+/* "[hjkl]": one of these keys, grouped on a soft pill */
+.choice {
+  display: inline-flex; align-items: center; gap: 2px; padding: 2px;
+  background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 8px;
+}
+.choice .k { min-width: 22px; padding: 0 5px; }
+
 .chord {
-  display: inline-flex; align-items: center; gap: 3px; padding: 2px 3px 2px 2px;
+  display: inline-flex; align-items: center; gap: 2px; padding: 1px 2px 1px 1px;
   border: 1.5px solid color-mix(in srgb, var(--k) 50%, transparent);
   background: color-mix(in srgb, var(--k) 6%, transparent);
   border-radius: 9px;
