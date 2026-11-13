@@ -4,6 +4,7 @@
  * Item format: [keys, descFR, descEN, options?]
  *   keys     string, or array of alternatives (shown with "or")
  *   options  { list: true }  -> alternatives shown side by side, without "or"
+ *            { since: "9.2" } -> "Vim 9.2+" badge for recent commands
  *            { code: true }  -> keys shown verbatim as code (regex, patterns)
  *
  * Key notation (vim style):
@@ -16,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.3.0",
+  version: "1.4.0",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
@@ -28,6 +29,7 @@ window.VIM_DATA = {
       close: "Fermer",
       examples: "Exemples",
       helpLabel: "Aide Vim",
+      since: (v) => "Nécessite Vim " + v + " ou plus récent",
       results: (n) => (n === 0 ? "Aucun résultat" : n === 1 ? "1 résultat" : n + " résultats"),
       noResults: "Aucune commande ne correspond. Essayez « ctrl », « fenêtre » ou « :s ».",
       legend: "Légende",
@@ -64,6 +66,7 @@ window.VIM_DATA = {
       close: "Close",
       examples: "Examples",
       helpLabel: "Vim help",
+      since: (v) => "Requires Vim " + v + " or later",
       results: (n) => (n === 0 ? "No results" : n === 1 ? "1 result" : n + " results"),
       noResults: "No command matches. Try “ctrl”, “window” or “:s”.",
       legend: "Legend",
@@ -275,6 +278,24 @@ window.VIM_DATA = {
           ],
         },
         {
+          title: { fr: "Copier & coller", en: "Yank & paste" },
+          items: [
+            [["yy", "Y"], "Copier la ligne", "Yank line"],
+            ["yw", "Copier jusqu'au mot suivant", "Yank to next word"],
+            [["p", "P"], "Coller après / avant", "Paste after / before", { list: true }],
+            [["gp", "gP"], "Coller et placer le curseur après", "Paste and move cursor after", { list: true }],
+            ["]p", "Coller en ajustant l'indentation", "Paste with adjusted indent"],
+          ],
+        },
+      ],
+    },
+
+    /* ───────────────────────────── Advanced editing ───────────────────────────── */
+    {
+      id: "advanced", icon: "wand", color: "alt",
+      label: { fr: "Édition avancée", en: "Advanced editing" },
+      groups: [
+        {
           title: { fr: "Opérateurs + mouvements", en: "Operators + motions" },
           items: [
             ["d{motion}", "Supprimer (ex. `d3w`, `dG`)", "Delete (e.g. `d3w`, `dG`)"],
@@ -299,13 +320,39 @@ window.VIM_DATA = {
           ],
         },
         {
-          title: { fr: "Copier & coller", en: "Yank & paste" },
+          title: { fr: "Complétion (Ctrl+x)", en: "Completion (Ctrl+x)" },
           items: [
-            [["yy", "Y"], "Copier la ligne", "Yank line"],
-            ["yw", "Copier jusqu'au mot suivant", "Yank to next word"],
-            [["p", "P"], "Coller après / avant", "Paste after / before", { list: true }],
-            [["gp", "gP"], "Coller et placer le curseur après", "Paste and move cursor after", { list: true }],
-            ["]p", "Coller en ajustant l'indentation", "Paste with adjusted indent"],
+            ["<C-x><C-n>", "Mots du fichier courant", "Words from the current file"],
+            ["<C-x><C-l>", "Ligne entière", "Whole line"],
+            ["<C-x><C-f>", "Nom de fichier", "File name"],
+            ["<C-x><C-o>", "Omni-complétion (selon le langage)", "Omni completion (language-aware)"],
+            ["<C-x><C-k>", "Dictionnaire (option `dictionary`)", "Dictionary (`dictionary` option)"],
+            ["<C-x><C-]>", "Tags (fichier `tags`)", "Tags (`tags` file)"],
+            ["<C-x>s", "Suggestions d'orthographe (`:set spell`)", "Spelling suggestions (`:set spell`)"],
+            ["<C-x><C-r>", "Mots contenus dans les registres", "Words from registers", { since: "9.2" }],
+            [["<C-y>", "<C-e>"], "Valider / annuler la complétion", "Accept / cancel completion", { list: true }],
+          ],
+        },
+        {
+          title: { fr: "Nombres & casse (mode normal)", en: "Numbers & case (normal mode)" },
+          items: [
+            ["<C-[ax]>", "Incrémenter / décrémenter le nombre sous le curseur", "Increment / decrement number under cursor"],
+            ["{n}<C-a>", "Ajouter n au nombre (ex. `10<C-a>`)", "Add n to the number (e.g. `10<C-a>`)"],
+            ["g<C-a>", "En visuel : numéroter une suite (1, 2, 3…)", "In visual: make a sequence (1, 2, 3…)"],
+            ["g~{motion}", "Inverser la casse (ex. `g~iw`)", "Toggle case (e.g. `g~iw`)"],
+            [["gUU", "guu"], "Ligne en majuscules / minuscules", "Line to upper / lower case", { list: true }],
+            ["g?{motion}", "Chiffrer en ROT13", "ROT13 encode"],
+          ],
+        },
+        {
+          title: { fr: "Formatage", en: "Formatting" },
+          items: [
+            ["gq{motion}", "Reformater selon `textwidth` (ex. `gqip`)", "Reflow to `textwidth` (e.g. `gqip`)"],
+            ["gJ", "Joindre les lignes sans ajouter d'espace", "Join lines without adding a space"],
+            [":sort", "Trier les lignes (`u` sans doublons, `n` numérique)", "Sort lines (`u` unique, `n` numeric)"],
+            [":retab", "Convertir tabulations / espaces selon `expandtab`", "Convert tabs / spaces per `expandtab`"],
+            ["gg=G", "Réindenter tout le fichier", "Re-indent the whole file"],
+            [":%norm A;", "Exécuter une commande normale sur chaque ligne", "Run a normal command on every line"],
           ],
         },
         {

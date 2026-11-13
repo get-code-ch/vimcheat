@@ -31,6 +31,7 @@
     star: '<path d="M10 2.5l2.3 4.8 5.2.7-3.8 3.6.9 5.2L10 14.3l-4.6 2.5.9-5.2-3.8-3.6 5.2-.7z"/>',
     move: '<path d="M10 2v16M2 10h16M7 4.5L10 2l3 2.5M7 15.5l3 2.5 3-2.5M4.5 7L2 10l2.5 3M15.5 7l2.5 3-2.5 3"/>',
     pencil: '<path d="M13.5 3.5l3 3L7 16H4v-3z"/><path d="M11.5 5.5l3 3"/>',
+    wand: '<path d="M3 17L13 7M11.5 5.5l3 3"/><path d="M15 2v3M13.5 3.5h3M17 9v2.4M15.8 10.2h2.4M8 2.5v2M7 3.5h2"/>',
     select: '<path d="M3 6V3h3M14 3h3v3M17 14v3h-3M6 17H3v-3"/><path d="M7 7h6v6H7z"/>',
     search: '<circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/>',
     windows: '<rect x="2.5" y="3.5" width="15" height="13" rx="2"/><path d="M10 3.5v13M10 10h7.5"/>',
@@ -201,7 +202,10 @@
       const info = INFO[k0]
         ? `<button type="button" class="info-btn" data-info="${esc(k0)}" aria-label="${esc(ui().info)} : ${esc(desc)}" title="${esc(ui().info)}">${svg(INFO_ICON, 16)}</button>`
         : "";
-      return keysHTML(keys, opts) + `<div class="desc${info ? " has-info" : ""}"><span>${richText(desc, q)}</span>${info}</div>`;
+      const since = opts.since
+        ? ` <span class="since" title="${esc(ui().since(opts.since))}">Vim ${esc(opts.since)}+</span>`
+        : "";
+      return keysHTML(keys, opts) + `<div class="desc${info ? " has-info" : ""}"><span>${richText(desc, q)}${since}</span>${info}</div>`;
     }).join("");
     return `<section class="card c-${tab.color}"><h3>${hl(group.title[lang], q)}</h3><div class="rows">${rows}</div></section>`;
   }
@@ -276,6 +280,7 @@
         const items = groupHit ? g.items : g.items.filter((it) => {
           const { keys, desc, opts } = item(it);
           return norm(desc).includes(q) || norm(keyWords(keys)).includes(q) ||
+            (opts.since && ("vim " + opts.since).includes(q)) ||
             (opts.eq && norm(keyWords(opts.eq)).includes(q));
         });
         count += items.length;

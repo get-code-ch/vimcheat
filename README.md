@@ -2,7 +2,7 @@
 
 Aide-mémoire Vim statique, lisible et bilingue (FR/EN) — *a readable, bilingual Vim cheat sheet.*
 
-- Onglets par type d'opération : essentiels, déplacements, édition, mode visuel, recherche & remplacement, buffers & fenêtres, fichiers, registres & macros.
+- Onglets par type d'opération : essentiels, déplacements, édition, édition avancée, mode visuel, recherche & remplacement, buffers & fenêtres, fichiers, registres & macros.
 - Touches spéciales colorées avec icônes (Esc, Ctrl, Shift, Alt, Entrée, Leader…), combinaisons (`Ctrl+w`) distinguées des séquences (`g g`).
 - Recherche instantanée (`/` pour y aller, `Esc` pour sortir), insensible aux accents.
 - Thème clair / sombre, version imprimable (`Ctrl+P` : tous les onglets sur A4).
@@ -35,7 +35,7 @@ Tout le contenu est dans [`public/data.js`](public/data.js). Chaque commande est
 | `:cmd …` | commande Ex |
 | `` `code` `` dans une description | code en ligne |
 
-Options : `{ eq: ":sp" }` (ou un tableau) affiche une commande équivalente en infobulle, `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
+Options : `{ since: "9.2" }` affiche un badge « Vim 9.2+ » pour les commandes récentes, `{ eq: ":sp" }` (ou un tableau) affiche une commande équivalente en infobulle, `{ list: true }` affiche les alternatives côte à côte (sans « ou »), `{ code: true }` affiche le texte tel quel (motifs regex).
 
 ## Explications détaillées
 

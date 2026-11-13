@@ -378,4 +378,32 @@ window.VIM_INFO = {
     ],
     help: "f",
   },
+  "<C-x><C-n>": {
+    title: { fr: "Complétion en mode insertion (Ctrl+x)", en: "Insert-mode completion (Ctrl+x)" },
+    fr: [
+      "En mode insertion, `Ctrl+n` / `Ctrl+p` complètent directement avec les mots du fichier et des autres buffers. `Ctrl+x` ouvre un sous-mode de complétion : la touche suivante choisit la source (lignes, fichiers, dictionnaire, registres…).",
+      "Dans le menu : `Ctrl+n` / `Ctrl+p` pour se déplacer, `Ctrl+y` pour valider, `Ctrl+e` pour annuler et retrouver le texte tapé.",
+      "Certaines sources demandent un réglage : `Ctrl+x Ctrl+o` dépend du type de fichier (ou d'un plugin LSP), `Ctrl+x Ctrl+k` de l'option `dictionary`, `Ctrl+x s` de `:set spell`, `Ctrl+x Ctrl+]` d'un fichier `tags`.",
+      "Nouveau dans Vim 9.2 : `Ctrl+x Ctrl+r` propose les mots contenus dans les registres, par exemple un identifiant copié depuis un autre fichier. À ne pas confondre avec `Ctrl+r` suivi d'un registre, qui colle le registre entier. Vim 9.2 ajoute aussi les drapeaux `nosort` et `nearest` à l'option `completeopt`.",
+    ],
+    en: [
+      "In insert mode, `Ctrl+n` / `Ctrl+p` complete straight from words in the file and other buffers. `Ctrl+x` enters a completion sub-mode: the next key picks the source (lines, files, dictionary, registers…).",
+      "In the menu: `Ctrl+n` / `Ctrl+p` to move, `Ctrl+y` to accept, `Ctrl+e` to cancel and get back what you typed.",
+      "Some sources need setup: `Ctrl+x Ctrl+o` depends on the file type (or an LSP plugin), `Ctrl+x Ctrl+k` on the `dictionary` option, `Ctrl+x s` on `:set spell`, `Ctrl+x Ctrl+]` on a `tags` file.",
+      "New in Vim 9.2: `Ctrl+x Ctrl+r` offers words found in registers, for example an identifier yanked from another file. Not to be confused with `Ctrl+r` followed by a register, which pastes the whole register. Vim 9.2 also adds the `nosort` and `nearest` flags to the `completeopt` option.",
+    ],
+    ex: [
+      ["<C-x><C-l>", "Compléter une ligne déjà écrite ailleurs", "Complete a line written elsewhere"],
+      ["<C-x><C-f>", "Compléter un chemin (ex. après `./src/`)", "Complete a path (e.g. after `./src/`)"],
+      ["<C-x><C-o>", "Suggestions du langage (méthodes, attributs…)", "Language suggestions (methods, attributes…)"],
+      ["<C-x><C-r>", "Mots des registres (Vim 9.2+)", "Words from registers (Vim 9.2+)"],
+      [["<C-n>", "<C-p>"], "Choisir dans le menu", "Move in the menu", { list: true }],
+      [["<C-y>", "<C-e>"], "Valider / annuler", "Accept / cancel", { list: true }],
+      [":set completeopt=menuone,noselect", "Toujours afficher le menu, sans présélection", "Always show the menu, nothing preselected"],
+    ],
+    help: "ins-completion",
+  },
 };
+
+// The same explanation is reachable from the new register completion row.
+window.VIM_INFO["<C-x><C-r>"] = window.VIM_INFO["<C-x><C-n>"];
