@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.5.0",
+  version: "1.6.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
@@ -34,6 +34,8 @@ window.VIM_DATA = {
       info: "Détails",
       close: "Fermer",
       examples: "Exemples",
+      demo: "Texte de départ (█ = curseur)",
+      demoResult: "Résultat",
       helpLabel: "Aide Vim",
       support: "Soutenir vimcheat",
       supportTitle: "Offrir un café pour soutenir le projet",
@@ -60,7 +62,7 @@ window.VIM_DATA = {
       source: "Code source",
       skip: "Aller au contenu",
       ph: {
-        motion: "mouvement", char: "car", n: "n", pattern: "motif", old: "ancien", new: "nouveau",
+        motion: "mouvement", op: "opérateur", obj: "objet", char: "car", n: "n", pattern: "motif", old: "ancien", new: "nouveau",
         file: "fichier", reg: "reg", mark: "marque", text: "texte", cmd: "cmd", topic: "sujet",
         dir: "dossier", type: "type", name: "nom", time: "durée", range: "plage",
       },
@@ -74,6 +76,8 @@ window.VIM_DATA = {
       info: "Details",
       close: "Close",
       examples: "Examples",
+      demo: "Starting text (█ = cursor)",
+      demoResult: "Result",
       helpLabel: "Vim help",
       support: "Support vimcheat",
       supportTitle: "Buy a coffee to support the project",
@@ -100,7 +104,7 @@ window.VIM_DATA = {
       source: "Source code",
       skip: "Skip to content",
       ph: {
-        motion: "motion", char: "char", n: "n", pattern: "pattern", old: "old", new: "new",
+        motion: "motion", op: "operator", obj: "object", char: "char", n: "n", pattern: "pattern", old: "old", new: "new",
         file: "file", reg: "reg", mark: "mark", text: "text", cmd: "cmd", topic: "topic",
         dir: "dir", type: "type", name: "name", time: "time", range: "range",
       },
@@ -322,13 +326,13 @@ window.VIM_DATA = {
         {
           title: { fr: "Objets texte", en: "Text objects" },
           items: [
-            [["iw", "aw"], "Mot (intérieur / avec espaces)", "Word (inner / with spaces)", { list: true }],
-            [["i\"", "a\""], "Entre guillemets", "Inside quotes", { list: true }],
-            [["i(", "a("], "Entre parenthèses (aussi `ib`)", "Inside parentheses (also `ib`)", { list: true }],
-            [["i{", "a{"], "Entre accolades (aussi `iB`)", "Inside braces (also `iB`)", { list: true }],
-            [["it", "at"], "Entre balises HTML/XML", "Inside HTML/XML tags", { list: true }],
-            [["ip", "ap"], "Paragraphe", "Paragraph", { list: true }],
-            [["ciw", "da\"", "yi("], "Exemples : changer le mot, supprimer la chaîne, copier les arguments", "Examples: change word, delete string, yank arguments", { list: true }],
+            ["{op}{obj}", "Toujours après un opérateur (`d` `c` `y` `v`…) : `ciw` = changer le mot", "Always after an operator (`d` `c` `y` `v`…): `ciw` = change word"],
+            [["iw", "aw"], "Mot (`i` = intérieur, `a` = avec l'espace)", "Word (`i` = inner, `a` = with the space)"],
+            [["i\"", "a\""], "Entre guillemets", "Inside quotes"],
+            [["i(", "a("], "Entre parenthèses (aussi `ib`)", "Inside parentheses (also `ib`)"],
+            [["i{", "a{"], "Entre accolades (aussi `iB`)", "Inside braces (also `iB`)"],
+            [["it", "at"], "Entre balises HTML/XML", "Inside HTML/XML tags"],
+            [["ip", "ap"], "Paragraphe", "Paragraph"],
           ],
         },
         {

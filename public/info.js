@@ -58,25 +58,28 @@ window.VIM_INFO = {
 
   iw: {
     title: { fr: "Objets texte", en: "Text objects" },
+    display: "{op}iw",
     fr: [
-      "Un objet texte s'utilise après un opérateur (`d`, `c`, `y`…) ou en mode visuel. Le curseur peut être n'importe où dans l'objet : pas besoin d'aller au début du mot ou de la parenthèse.",
-      "`i` = intérieur (inner) : seulement le contenu. `a` = autour (around) : inclut les délimiteurs ou l'espace qui suit.",
-      "Objets disponibles : `w` mot, `W` MOT, `s` phrase, `p` paragraphe, `\"` `'` et l'accent grave : chaînes, `(` ou `b` parenthèses, `[` crochets, `{` ou `B` accolades, `<` chevrons, `t` balise XML/HTML. Pour les guillemets, Vim cherche aussi vers l'avant sur la ligne.",
+      "Une commande Vim se lit comme une phrase : un **verbe** puis un **complément**. Le verbe est l'opérateur (`d` supprimer, `c` changer, `y` copier, `v` sélectionner). L'objet texte est le complément : il dit sur quoi agir. `iw` tout seul ne fait donc rien : on tape `c` puis `i` puis `w`, soit « change inner word ».",
+      "`i` = intérieur (inner) : seulement le contenu. `a` = autour (around) : avec les délimiteurs, ou l'espace qui suit pour un mot. Le curseur peut être n'importe où dans l'objet.",
+      "Objets disponibles : `w` mot, `W` MOT, `s` phrase, `p` paragraphe, `\"` `'` chaînes, `(` ou `b` parenthèses, `[` crochets, `{` ou `B` accolades, `<` chevrons, `t` balise XML/HTML.",
     ],
     en: [
-      "A text object is used after an operator (`d`, `c`, `y`…) or in visual mode. The cursor can be anywhere inside the object: no need to go to the start of the word or bracket.",
-      "`i` = inner: only the contents. `a` = around: includes the delimiters or the trailing space.",
-      "Available objects: `w` word, `W` WORD, `s` sentence, `p` paragraph, `\"` `'` and backtick: strings, `(` or `b` parentheses, `[` brackets, `{` or `B` braces, `<` angle brackets, `t` XML/HTML tag. For quotes, Vim also searches forward on the line.",
+      "A Vim command reads like a sentence: a **verb** then an **object**. The verb is the operator (`d` delete, `c` change, `y` yank, `v` select). The text object says what to act on. So `iw` alone does nothing: you type `c` then `i` then `w`, i.e. \"change inner word\".",
+      "`i` = inner: only the contents. `a` = around: with the delimiters, or the trailing space for a word. The cursor can be anywhere inside the object.",
+      "Available objects: `w` word, `W` WORD, `s` sentence, `p` paragraph, `\"` `'` strings, `(` or `b` parentheses, `[` brackets, `{` or `B` braces, `<` angle brackets, `t` XML/HTML tag.",
     ],
-    ex: [
-      ["ciw", "Remplacer le mot", "Change the word"],
-      ["daw", "Supprimer le mot et l'espace", "Delete the word and its space"],
-      ["ci\"", "Remplacer le contenu de la chaîne", "Change the string contents"],
-      ["da(", "Supprimer les parenthèses et leur contenu", "Delete parentheses and contents"],
-      ["yit", "Copier le contenu de la balise", "Yank tag contents"],
-      ["vap", "Sélectionner le paragraphe", "Select the paragraph"],
-      ["=i{", "Réindenter le bloc entre accolades", "Re-indent the brace block"],
-    ],
+    demo: {
+      text: 'print("hel█lo world")',
+      rows: [
+        ["ciw", 'print("█ world")', "Change le mot : il est effacé et on passe en insertion", "Changes the word: deleted, now in insert mode"],
+        ["daw", 'print("█world")', "Supprime le mot et son espace", "Deletes the word and its space"],
+        ["ci\"", 'print("█")', "Change tout le contenu de la chaîne", "Changes the whole string contents"],
+        ["da\"", 'print(█)', "Supprime la chaîne, guillemets compris", "Deletes the string, quotes included"],
+        ["di(", 'print(█)', "Supprime le contenu des parenthèses", "Deletes the parentheses contents"],
+        ["yi(", 'print(█"hello world")', "Copie le contenu des parenthèses (texte inchangé, curseur au début)", "Yanks the parentheses contents (text unchanged, cursor at the start)"],
+      ],
+    },
     help: "text-objects",
   },
 

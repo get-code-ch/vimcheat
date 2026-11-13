@@ -39,7 +39,7 @@ Options : `{ since: "9.2" }` affiche un badge « Vim 9.2+ » pour les commandes 
 
 ## Explications détaillées
 
-Les commandes complexes ont une icône ⓘ qui ouvre une fenêtre d'explications. Le contenu est dans [`public/info.js`](public/info.js), indexé par la première touche de la commande dans `data.js` (paragraphes FR/EN, exemples, sujet `:help`).
+Les commandes complexes ont une icône ⓘ qui ouvre une fenêtre d'explications. Le contenu est dans [`public/info.js`](public/info.js), indexé par la première touche de la commande dans `data.js` (paragraphes FR/EN avec `**gras**`, exemples, sujet `:help`). Options : `display` remplace les touches de l'en-tête (ex. `"{op}iw"`), `demo` ajoute un exemple avant/après (`text` avec `█` pour le curseur, puis `[touches, résultat, note FR, note EN]`).
 
 ## Version
 

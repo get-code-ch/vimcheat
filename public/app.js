@@ -145,7 +145,7 @@
     return text.split(/(`[^`]+`)/).map((part) =>
       part.startsWith("`") && part.endsWith("`") && part.length > 1
         ? "<code>" + hl(part.slice(1, -1), q) + "</code>"
-        : hl(part, q)
+        : hl(part, q).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     ).join("");
   }
 
@@ -191,7 +191,8 @@
 
   function altsHTML(keys, opts = {}) {
     const list = Array.isArray(keys) ? keys : [keys];
-    const sep = opts.list ? "" : `<span class="or">${esc(ui().or)}</span>`;
+    // list: compact alternatives, still visibly separated so they don't read as one sequence.
+    const sep = opts.list ? `<span class="alt-sep" aria-hidden="true"></span>` : `<span class="or">${esc(ui().or)}</span>`;
     return list.map((k) => seqHTML(k, opts)).join(sep);
   }
 
@@ -323,7 +324,7 @@
     $("#info-inner").innerHTML = `
       <header class="info-head">
         <div>
-          <div class="info-keys">${keysHTML(infoKey)}</div>
+          <div class="info-keys">${keysHTML(d.display || infoKey)}</div>
           <h2 id="info-title">${esc(d.title[lang])}</h2>
         </div>
         <button type="button" class="icon-btn info-close" aria-label="${esc(u.close)}" title="${esc(u.close)} (Esc)">
@@ -332,9 +333,20 @@
       </header>
       <div class="info-body">
         ${(d[lang] || []).map((p) => `<p>${richText(p, "")}</p>`).join("")}
+        ${d.demo ? demoHTML(d.demo, u) : ""}
         ${ex ? `<h3>${esc(u.examples)}</h3><div class="rows">${ex}</div>` : ""}
       </div>
       ${d.help ? `<footer class="info-foot"><span>${esc(u.helpLabel)}</span>${seqHTML(":help " + d.help)}</footer>` : ""}`;
+  }
+
+  /** Before/after demo: starting text, then each command with the resulting text. */
+  function demoHTML(demo, u) {
+    const line = (t) => `<code class="demo-line">${esc(t).replace("█", '<span class="cur">█</span>')}</code>`;
+    const rows = demo.rows.map((r) =>
+      keysHTML(r[0]) + `<div class="desc">${line(r[1])}<span class="demo-note">${richText(lang === "fr" ? r[2] : r[3], "")}</span></div>`
+    ).join("");
+    return `<h3>${esc(u.demo)}</h3><div class="demo-start">${line(demo.text)}</div>` +
+      `<div class="rows demo">${rows}</div>`;
   }
 
   function openInfo(key) {
@@ -469,7 +481,7 @@
     for (const el of document.querySelectorAll("#support, .support-foot")) el.hidden = false;
     $("#support").href = $("#support-foot").href = site.supportUrl;
   }
-  if (site.analyticsToken) {
+  if (site.analyticsToken && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) {
     // Cloudflare Web Analytics: cookieless, no cross-site tracking.
     const b = document.createElement("script");
     b.type = "module"; // as in the official snippet
