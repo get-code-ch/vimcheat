@@ -5,5 +5,13 @@
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page"
+  },
+  // Workers Logs / Traces. Note: requests that match a static asset are served
+  // without invoking a Worker, so they don't produce logs. This takes effect
+  // as soon as a Worker script is added (e.g. for headers or an API).
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1, "invocation_logs": true },
+    "traces": { "enabled": true, "head_sampling_rate": 1 }
   }
 }
