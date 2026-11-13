@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vimcheat — Vim cheat sheet</title>
+  <meta name="description" content="Aide-mémoire Vim lisible et bilingue (FR/EN) : déplacements, édition, mode visuel, recherche, buffers, fichiers, registres et macros.">
+  <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121413" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Apply saved theme before first paint to avoid a flash.
+    try {
+      var t = localStorage.getItem("vimcheat.theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+
+  <header class="top">
+    <div class="top-inner">
+      <a class="logo" href="#essentials" aria-label="vimcheat">
+        <span class="logo-vim">vim</span><span class="logo-cheat">cheat</span><span class="logo-cursor" aria-hidden="true"></span>
+      </a>
+
+      <label class="search">
+        <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Rechercher une commande…">
+        <kbd class="k search-kbd" aria-hidden="true">/</kbd>
+      </label>
+
+      <div class="controls">
+        <div class="lang" role="group" aria-label="Langue" id="lang">
+          <button type="button" data-lang="fr">FR</button>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <button type="button" class="icon-btn" id="theme" aria-label="Changer de thème">
+          <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.5"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6L16 16M4 16l1.4-1.4M14.6 5.4L16 4"/></svg>
+          <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.5A7 7 0 0 1 7.5 3.5a7 7 0 1 0 9 9z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="tabs-wrap">
+      <div class="tabs" role="tablist" id="tabs"></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <details class="legend" id="legend">
+      <summary><span data-i18n="legend">Légende</span></summary>
+      <div class="legend-body" id="legend-body"></div>
+    </details>
+
+    <div id="results" class="results" hidden aria-live="polite"></div>
+    <div id="panels"></div>
+  </main>
+
+  <footer class="foot">
+    <span data-i18n="footer"></span>
+    <span class="dot">·</span>
+    <a href="https://github.com/get-code-ch/vimcheat" data-i18n="source">Code source</a>
+    <span class="dot">·</span>
+    <span>MIT</span>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
