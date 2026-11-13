@@ -2,6 +2,8 @@
 
 Aide-mémoire Vim statique, lisible et bilingue (FR/EN) — *a readable, bilingual Vim cheat sheet.*
 
+**→ [vimcheat.kite-project.net](https://vimcheat.kite-project.net/)**
+
 - Onglets par type d'opération : essentiels, déplacements, édition, édition avancée, mode visuel, recherche & remplacement, buffers & fenêtres, fichiers, registres & macros.
 - Touches spéciales colorées avec icônes (Esc, Ctrl, Shift, Alt, Entrée, Leader…), combinaisons (`Ctrl+w`) distinguées des séquences (`g g`).
 - Recherche instantanée (`/` pour y aller, `Esc` pour sortir), insensible aux accents.
@@ -56,7 +58,7 @@ Secrets à définir dans le repo GitHub (*Settings → Secrets and variables →
 
 ## Référencement
 
-- URL de base `https://vimcheat.claude-db2.workers.dev/` codée dans `public/index.html` (canonical, hreflang, Open Graph, JSON-LD), `public/robots.txt` et `public/sitemap.xml` : à remplacer partout en cas de domaine personnalisé.
+- URL de base `https://vimcheat.kite-project.net/` codée dans `public/index.html` (canonical, hreflang, Open Graph, JSON-LD), `public/robots.txt` et `public/sitemap.xml` . Le Worker répond aussi sur `workers.dev` ; la balise canonical renvoie vers le domaine.
 - Français à `/`, anglais à `/?lang=en` (le paramètre `?lang=` prime sur le choix mémorisé et la langue du navigateur).
 - Image de partage : `public/og.png` (1200×630).
 

@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.8.0",
+  version: "1.8.1",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
