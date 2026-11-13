@@ -396,6 +396,8 @@ mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1
   border-radius: 9px;
 }
 .plus { font: 600 11px/1 var(--mono); color: var(--k); opacity: .8; }
+/* Next key while the modifier stays held (Ctrl+x Ctrl+n) */
+.then { font: 700 13px/1 var(--mono); color: var(--k); opacity: .65; margin: 0 1px; }
 
 .ph {
   display: inline-flex; align-items: center; height: 26px; padding: 0 7px;

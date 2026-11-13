@@ -102,7 +102,15 @@
         i += 1;
       }
     }
-    return out;
+    // Merge consecutive chords with the same modifier: <C-x><C-n> -> Ctrl + x › n
+    // (Ctrl stays held while pressing x then n).
+    const merged = [];
+    for (const t of out) {
+      const prev = merged[merged.length - 1];
+      if (t.t === "chord" && prev && prev.t === "chord" && prev.mod === t.mod) prev.keys.push(t.key);
+      else merged.push(t.t === "chord" ? { t: "chord", mod: t.mod, keys: [t.key] } : t);
+    }
+    return merged;
   }
 
   /* ───────────────────────── State ───────────────────────── */
@@ -141,6 +149,8 @@
     ).join("");
   }
 
+  const keyName = (k) => k.t === "choice" ? "[" + k.keys.map((c) => c.ch).join("") + "]" : (k.label || k.ch);
+
   function keyHTML(tok) {
     if (tok.t === "key") {
       const label = tok.ch === " " ? "␣" : tok.ch;
@@ -156,7 +166,9 @@
     if (tok.t === "chord") {
       const m = tok.mod;
       const mod = `<kbd class="k tint c-${m.c}">${svg(KEY_ICONS[m.icon])}<span>${m.label}</span></kbd>`;
-      return `<span class="chord c-${m.c}" title="${m.label}+${esc(tok.key.label || tok.key.ch)}">${mod}<span class="plus">+</span>${keyHTML(tok.key)}</span>`;
+      const title = tok.keys.map((k) => m.label + "+" + keyName(k)).join(" ");
+      const keys = tok.keys.map(keyHTML).join('<span class="then" aria-hidden="true">›</span>');
+      return `<span class="chord c-${m.c}" title="${esc(title)}">${mod}<span class="plus">+</span>${keys}</span>`;
     }
     return "";
   }
@@ -256,7 +268,7 @@
     // Human words for a key list so "ctrl w" or "esc" find "<C-w>" / "<Esc>".
     const list = Array.isArray(keys) ? keys : [keys];
     return list.map((k) => k + " " + tokenize(k).map((t) =>
-      t.t === "chord" ? ["+", "-", " "].map((s) => t.mod.label + s + (t.key.label || t.key.ch)).join(" ") :
+      t.t === "chord" ? ["+", "-", " "].map((s) => t.keys.map((k) => t.mod.label + s + keyName(k)).join(" ")).join(" ") :
       t.t === "special" ? t.label + " " + (t.icon || "") :
       t.t === "ph" ? phLabel(t.name) :
       t.t === "choice" ? t.keys.map((k) => k.ch).join(" ") : t.ch

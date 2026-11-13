@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.4.0",
+  version: "1.4.1",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
@@ -39,6 +39,7 @@ window.VIM_DATA = {
         ["gg", "Séquence : taper les touches l'une après l'autre"],
         ["<C-w>v", "Combinaison suivie d'une touche"],
         ["<C-w>[hjkl]", "Au choix : une des touches du groupe"],
+        ["<C-x><C-n>", "Ctrl maintenu : x puis n (Ctrl+x Ctrl+n)"],
         [":w", "Commande Ex : taper puis valider avec Entrée"],
         ["{motion}", "À remplacer : mouvement, caractère, nombre…"],
         ["<leader>", "Touche leader (\\ par défaut)"],
@@ -76,6 +77,7 @@ window.VIM_DATA = {
         ["gg", "Sequence: type the keys one after another"],
         ["<C-w>v", "Chord followed by a key"],
         ["<C-w>[hjkl]", "Pick one: any key of the group"],
+        ["<C-x><C-n>", "Hold Ctrl: x then n (Ctrl+x Ctrl+n)"],
         [":w", "Ex command: type it, then confirm with Enter"],
         ["{motion}", "Replace with a motion, character, count…"],
         ["<leader>", "Leader key (\\ by default)"],
@@ -330,7 +332,7 @@ window.VIM_DATA = {
             ["<C-x><C-]>", "Tags (fichier `tags`)", "Tags (`tags` file)"],
             ["<C-x>s", "Suggestions d'orthographe (`:set spell`)", "Spelling suggestions (`:set spell`)"],
             ["<C-x><C-r>", "Mots contenus dans les registres", "Words from registers", { since: "9.2" }],
-            [["<C-y>", "<C-e>"], "Valider / annuler la complétion", "Accept / cancel completion", { list: true }],
+            ["<C-[ye]>", "Valider / annuler la complétion", "Accept / cancel completion"],
           ],
         },
         {
