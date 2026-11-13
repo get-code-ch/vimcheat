@@ -20,7 +20,7 @@ window.VIM_DATA = {
   version: "1.5.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
-    analyticsToken: "",
+    analyticsToken: "a9429d0dc2a247248e76683cb481430f",
     // Donation page (Ko-fi, GitHub Sponsors, Buy Me a Coffee…). Empty = hidden.
     supportUrl: "https://github.com/sponsors/get-code-ch",
   },

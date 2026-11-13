@@ -472,7 +472,7 @@
   if (site.analyticsToken) {
     // Cloudflare Web Analytics: cookieless, no cross-site tracking.
     const b = document.createElement("script");
-    b.defer = true;
+    b.type = "module"; // as in the official snippet
     b.src = "https://static.cloudflareinsights.com/beacon.min.js";
     b.dataset.cfBeacon = JSON.stringify({ token: site.analyticsToken });
     document.body.appendChild(b);
