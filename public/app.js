@@ -196,12 +196,21 @@
     return list.map((k) => seqHTML(k, opts)).join(sep);
   }
 
+  /** How the command is typed: "ex" (: … Enter), "direct" (keys typed as-is), or "" if mixed / verbatim. */
+  function kindOf(keys, opts) {
+    if (opts.code) return "";
+    const ex = [].concat(keys).map((k) => k.length > 1 && k[0] === ":");
+    return ex.every(Boolean) ? "ex" : ex.some(Boolean) ? "" : "direct";
+  }
+
   let tipId = 0;
   function keysHTML(keys, opts = {}) {
-    if (!opts.eq) return `<div class="keys">${altsHTML(keys, opts)}</div>`;
+    const kind = kindOf(keys, opts);
+    const cls = "keys" + (kind ? " kind-" + kind : "");
+    if (!opts.eq) return `<div class="${cls}">${altsHTML(keys, opts)}</div>`;
     // Equivalent command (usually the Ex form of a Ctrl shortcut), shown as a tooltip.
     const id = "tip-" + ++tipId;
-    return `<div class="keys has-tip" tabindex="0" aria-describedby="${id}">${altsHTML(keys, opts)}` +
+    return `<div class="${cls} has-tip" tabindex="0" aria-describedby="${id}">${altsHTML(keys, opts)}` +
       `<span class="tip-dot" aria-hidden="true">≡</span>` +
       `<span class="tip" role="tooltip" id="${id}"><span class="tip-label">${esc(ui().eq)}</span>${[].concat(opts.eq).map((k) => seqHTML(k)).join('<span class="or">/</span>')}</span></div>`;
   }
@@ -244,7 +253,7 @@
   function renderLegend() {
     const u = ui();
     $("#legend-body").innerHTML =
-      u.legendItems.map(([k, text]) => `<div class="legend-item">${keysHTML(k, { list: true })}<span>${esc(text)}</span></div>`).join("") +
+      u.legendItems.map(([k, text, kind]) => `<div class="legend-item${kind ? " show-kind" : ""}">${keysHTML(k, { list: true })}<span>${esc(text)}</span></div>`).join("") +
       `<p class="legend-note">${esc(u.legendNote)}</p>`;
   }
 

@@ -270,7 +270,7 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 }
 .legend-item { display: flex; align-items: center; gap: 12px; font-size: 13.5px; color: var(--text-2); }
-.legend-item .keys { flex: 0 1 auto; }
+.legend-item .keys { flex: 0 1 auto; margin-left: 6px; }
 .legend-item > span { min-width: 9em; flex: 1; }
 .legend-note { grid-column: 1 / -1; font-size: 13px; color: var(--muted); margin: 0; }
 
@@ -294,6 +294,15 @@ main { flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; padding: 20px 24
 /* Both cells stretch to the row height so their separators line up; content is top-aligned,
    and the description is nudged down to sit on the middle of the first line of keys. */
 .rows > .keys { align-self: stretch; align-content: flex-start; }
+/* Very light pastel pad behind the keys: green = typed directly, blue = Ex command (: … Enter). */
+.keys.kind-direct, .keys.kind-ex { isolation: isolate; }
+.keys.kind-direct::before, .keys.kind-ex::before {
+  content: ""; position: absolute; z-index: -1; inset: 2px -6px; border-radius: 8px;
+}
+.keys.kind-direct::before { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.keys.kind-ex::before { background: color-mix(in srgb, var(--ctrl) 8%, transparent); }
+.legend-item:not(.show-kind) .keys::before { display: none; }
+.legend-item .keys::before { inset: -4px -6px; }
 .rows > .desc { align-self: stretch; padding-top: 9px; }
 .desc code {
   font: 500 12.5px var(--mono); background: var(--surface-2); border: 1px solid var(--line);

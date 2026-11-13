@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.6.0",
+  version: "1.7.0",
   site: {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "a9429d0dc2a247248e76683cb481430f",
@@ -46,11 +46,11 @@ window.VIM_DATA = {
       legendItems: [
         ["<Esc>", "Échap : revenir au mode normal"],
         ["<C-w>", "Combinaison : maintenir Ctrl et appuyer sur w"],
-        ["gg", "Séquence : taper les touches l'une après l'autre"],
+        ["gg", "Fond vert : touches à taper directement, l'une après l'autre (sans : ni Entrée)", true],
         ["<C-w>v", "Combinaison suivie d'une touche"],
         ["<C-w>[hjkl]", "Au choix : une des touches du groupe"],
         ["<C-x><C-n>", "Ctrl maintenu : x puis n (Ctrl+x Ctrl+n)"],
-        [":w", "Commande Ex : taper puis valider avec Entrée"],
+        [":w", "Fond bleu : commande Ex, taper : puis la commande, valider avec Entrée", true],
         ["{motion}", "À remplacer : mouvement, caractère, nombre…"],
         ["<leader>", "Touche leader (\\ par défaut)"],
         [["<S-Tab>", "<A-j>", "<CR>"], "Shift, Alt, Entrée"],
@@ -88,11 +88,11 @@ window.VIM_DATA = {
       legendItems: [
         ["<Esc>", "Escape: back to normal mode"],
         ["<C-w>", "Chord: hold Ctrl and press w"],
-        ["gg", "Sequence: type the keys one after another"],
+        ["gg", "Green background: keys typed directly, one after another (no : or Enter)", true],
         ["<C-w>v", "Chord followed by a key"],
         ["<C-w>[hjkl]", "Pick one: any key of the group"],
         ["<C-x><C-n>", "Hold Ctrl: x then n (Ctrl+x Ctrl+n)"],
-        [":w", "Ex command: type it, then confirm with Enter"],
+        [":w", "Blue background: Ex command, type : then the command, confirm with Enter", true],
         ["{motion}", "Replace with a motion, character, count…"],
         ["<leader>", "Leader key (\\ by default)"],
         [["<S-Tab>", "<A-j>", "<CR>"], "Shift, Alt, Enter"],
