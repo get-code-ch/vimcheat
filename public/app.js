@@ -363,6 +363,9 @@
     $("#lang").setAttribute("aria-label", u.lang);
     $("#theme").setAttribute("aria-label", u.theme);
     $("#theme").title = u.theme;
+    $("#support").setAttribute("aria-label", u.support);
+    $("#support").title = u.supportTitle;
+    $("#support-foot").textContent = "☕ " + u.support;
     for (const b of document.querySelectorAll("#lang button")) b.setAttribute("aria-pressed", b.dataset.lang === lang);
     renderTabs();
     renderPanels();
@@ -459,6 +462,21 @@
   window.addEventListener("afterprint", () => renderResults());
 
   $("#version").textContent = "v" + DATA.version;
+
+  /* Optional site features, driven by VIM_DATA.site */
+  const site = DATA.site || {};
+  if (site.supportUrl) {
+    for (const el of document.querySelectorAll("#support, .support-foot")) el.hidden = false;
+    $("#support").href = $("#support-foot").href = site.supportUrl;
+  }
+  if (site.analyticsToken) {
+    // Cloudflare Web Analytics: cookieless, no cross-site tracking.
+    const b = document.createElement("script");
+    b.defer = true;
+    b.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    b.dataset.cfBeacon = JSON.stringify({ token: site.analyticsToken });
+    document.body.appendChild(b);
+  }
 
   if (store.get("legend") === "open") $("#legend").open = true;
   $("#legend").addEventListener("toggle", (e) => store.set("legend", e.target.open ? "open" : "closed"));

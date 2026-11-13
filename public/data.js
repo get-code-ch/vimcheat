@@ -17,7 +17,13 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.4.2",
+  version: "1.5.0",
+  site: {
+    // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
+    analyticsToken: "",
+    // Donation page (Ko-fi, GitHub Sponsors, Buy Me a Coffee…). Empty = hidden.
+    supportUrl: "",
+  },
   ui: {
     fr: {
       title: "Aide-mémoire Vim",
@@ -29,6 +35,8 @@ window.VIM_DATA = {
       close: "Fermer",
       examples: "Exemples",
       helpLabel: "Aide Vim",
+      support: "Soutenir vimcheat",
+      supportTitle: "Offrir un café pour soutenir le projet",
       since: (v) => "Nécessite Vim " + v + " ou plus récent",
       results: (n) => (n === 0 ? "Aucun résultat" : n === 1 ? "1 résultat" : n + " résultats"),
       noResults: "Aucune commande ne correspond. Essayez « ctrl », « fenêtre » ou « :s ».",
@@ -67,6 +75,8 @@ window.VIM_DATA = {
       close: "Close",
       examples: "Examples",
       helpLabel: "Vim help",
+      support: "Support vimcheat",
+      supportTitle: "Buy a coffee to support the project",
       since: (v) => "Requires Vim " + v + " or later",
       results: (n) => (n === 0 ? "No results" : n === 1 ? "1 result" : n + " results"),
       noResults: "No command matches. Try “ctrl”, “window” or “:s”.",
