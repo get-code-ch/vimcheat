@@ -22,7 +22,7 @@ window.VIM_DATA = {
     // Cloudflare Web Analytics site token (public, cookieless). Empty = disabled.
     analyticsToken: "",
     // Donation page (Ko-fi, GitHub Sponsors, Buy Me a Coffee…). Empty = hidden.
-    supportUrl: "",
+    supportUrl: "https://github.com/sponsors/get-code-ch",
   },
   ui: {
     fr: {
