@@ -17,7 +17,7 @@
  * Use `backticks` in descriptions for inline code.
  */
 window.VIM_DATA = {
-  version: "1.4.1",
+  version: "1.4.2",
   ui: {
     fr: {
       title: "Aide-mémoire Vim",

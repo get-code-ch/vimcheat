@@ -255,12 +255,14 @@
       if (on) {
         // Keep the active tab visible in the scrollable bar without scrolling the page.
         const bar = $("#tabs"), b = btn.getBoundingClientRect(), r = bar.getBoundingClientRect();
-        if (b.left < r.left) bar.scrollLeft -= r.left - b.left + 16;
-        else if (b.right > r.right) bar.scrollLeft += b.right - r.right + 16;
+        // 48px margin keeps the tab clear of the scroll arrows.
+        if (b.left < r.left + 48) bar.scrollLeft -= r.left + 48 - b.left;
+        else if (b.right > r.right - 48) bar.scrollLeft += b.right - (r.right - 48);
         if (focus) btn.focus({ preventScroll: true });
       }
     }
     for (const p of document.querySelectorAll(".panel")) p.hidden = p.id !== "panel-" + id;
+    updateTabArrows();
   }
 
   /* ───────────────────────── Search ───────────────────────── */
@@ -394,6 +396,27 @@
     history.replaceState(null, "", "#" + ids[i]);
     showTab(ids[i], true);
   });
+
+  /* Tab bar overflow: arrows, mouse wheel, edge state */
+  const tabsWrap = $("#tabs-wrap"), tabsBar = $("#tabs");
+  function updateTabArrows() {
+    const max = tabsBar.scrollWidth - tabsBar.clientWidth;
+    tabsWrap.classList.toggle("can-prev", tabsBar.scrollLeft > 2);
+    tabsWrap.classList.toggle("can-next", tabsBar.scrollLeft < max - 2);
+  }
+  tabsWrap.addEventListener("click", (e) => {
+    const a = e.target.closest(".tabs-arrow");
+    if (a) tabsBar.scrollBy({ left: +a.dataset.dir * tabsBar.clientWidth * 0.7, behavior: "smooth" });
+  });
+  tabsBar.addEventListener("scroll", updateTabArrows, { passive: true });
+  tabsBar.addEventListener("wheel", (e) => {
+    // Vertical wheel scrolls the tab bar sideways when it overflows.
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || tabsBar.scrollWidth <= tabsBar.clientWidth) return;
+    e.preventDefault();
+    tabsBar.scrollLeft += e.deltaY;
+  }, { passive: false });
+  if ("ResizeObserver" in window) new ResizeObserver(updateTabArrows).observe(tabsBar);
+  window.addEventListener("resize", updateTabArrows);
 
   window.addEventListener("hashchange", () => {
     showTab(currentTabId());

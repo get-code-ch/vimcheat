@@ -48,8 +48,14 @@
       </div>
     </div>
 
-    <nav class="tabs-wrap">
+    <nav class="tabs-wrap" id="tabs-wrap">
+      <button type="button" class="tabs-arrow prev" data-dir="-1" tabindex="-1" aria-hidden="true">
+        <svg viewBox="0 0 20 20"><path d="M12.5 4.5L7 10l5.5 5.5"/></svg>
+      </button>
       <div class="tabs" role="tablist" id="tabs"></div>
+      <button type="button" class="tabs-arrow next" data-dir="1" tabindex="-1" aria-hidden="true">
+        <svg viewBox="0 0 20 20"><path d="M7.5 4.5L13 10l-5.5 5.5"/></svg>
+      </button>
     </nav>
   </header>
 
